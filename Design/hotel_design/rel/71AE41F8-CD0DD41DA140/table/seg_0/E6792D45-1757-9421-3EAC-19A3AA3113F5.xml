@@ -1,0 +1,92 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E6792D45-1757-9421-3EAC-19A3AA3113F5" name="GUEST">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:11:45 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<ordsAlias>table_5</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="guest_id" id="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:12:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="first_name" id="5B3C01F5-286B-5DE3-C964-86C86A2C9979">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:12:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="last_name" id="3935546E-92A4-FE1A-FE10-35863C4BF9BC">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:12:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="passport_number" id="5DCDA704-4F2B-8917-8ACA-5092077A895A">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:12:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="7F59228D-7118-76C1-8F56-9680E4CF8941">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:35:09 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="phone_number" id="AE37498D-2141-A938-9C06-EFB6CE9F934D">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:39:48 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>14</dataTypeSize>
+<ownDataTypeParameters>14,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="690A9C31-8A34-474B-0991-D73C2BB84804" name="GUEST_PK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:12:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

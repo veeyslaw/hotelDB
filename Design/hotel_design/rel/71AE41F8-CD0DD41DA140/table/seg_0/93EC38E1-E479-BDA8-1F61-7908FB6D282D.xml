@@ -1,0 +1,154 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="93EC38E1-E479-BDA8-1F61-7908FB6D282D" name="HOTEL">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:06:28 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="hotel_id" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:07:44 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hotel_name" id="01EAAF40-714B-3F97-85BD-665C46A97D8C">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:07:44 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="city_name" id="BAE3E946-6D89-915C-11EA-E8B674E1A95F">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:22:18 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="contact_number" id="EB20CB0D-23E1-1458-B560-3CCEE93A6520">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 22:08:23 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>14</dataTypeSize>
+<ownDataTypeParameters>14,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="manager_name" id="DFAB4568-BC61-FECE-0990-D27CC520031D">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:28:31 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rating" id="A0246283-E27E-3507-A4B1-4BD8C7CCC34A">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:47:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="B93292DE-D15C-0EED-E9FB-C79815234B29">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:52:16 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="restaurant" id="3A41736A-1D56-2764-3F5D-1FEBC16C4E8D">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:47:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="free_meals" id="E2C2C6EC-B348-3595-7A75-8983CCB1A476">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:48:26 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pool" id="999B7401-E39E-17F1-8286-45DF25C9C46B">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:47:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="free_internet" id="64F8DDD0-5F9D-6F4C-CD58-33EDD59F5735">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:47:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7BAB91EA-FA01-D041-E75A-C29B106502AC" name="HOTEL_PK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:07:44 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

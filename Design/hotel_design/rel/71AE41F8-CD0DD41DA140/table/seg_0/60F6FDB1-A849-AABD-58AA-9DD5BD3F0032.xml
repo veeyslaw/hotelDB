@@ -1,0 +1,166 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="60F6FDB1-A849-AABD-58AA-9DD5BD3F0032" name="APARTMENT">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:08:47 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="apartment_id" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:10:15 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:27:13 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E7598769-EBF5-31FB-CE32-70C8D281BE24" referredColumn="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</associations>
+</Column>
+<Column name="room_number" id="3BC68BA6-55FE-E558-E15E-99AE0622F14D">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:10:15 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="capacity" id="2D12C01A-F999-6BAA-06E3-0B6F66BE6CA9">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 22:06:30 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="price_per_night" id="29E9FE43-A95A-AF87-8C99-3E346EE7648C">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:10:15 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT043</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,3,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="state" id="FCD7B1B4-4D49-2959-E52B-D56579F3C545">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:41:43 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="description" id="4393260B-93B6-B5E3-DCA8-B971D8BB06AE">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:45:32 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="air_conditioner" id="D70E3399-B38D-FB9D-98F4-FD7808DA89FA">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:49:23 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="minibar" id="8F385EB4-F12B-CC3A-0B57-08790D1EE957">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:49:23 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tv" id="78DE5872-70E8-DC40-D221-C52151DB9985">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 22:00:58 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="double_bed" id="6D335D62-0B7B-C927-055B-DF944ED91154">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 22:00:58 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="93AD8A6F-5A59-01BA-82A5-4C19D8C87C34" name="APARTMENT_PK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:10:15 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1127B213-647F-256E-4333-8CD78D721D7D" name="APARTMENT_HOTEL_FK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:27:13 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
