@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="1A47CE2E-2C9E-5580-CB7F-16E0DAE4E834" mainViewID="FCBEBAC1-B295-8FB7-09D5-95BB9DBADD6E">
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="C7101526-6534-59D6-87BD-6FB61DA1DDE2" mainViewID="9D813ED2-D9AB-C8CE-54D7-7990DC04992C">
 <createdBy>Userr</createdBy>
-<createdTime>2020-11-30 17:38:37 UTC</createdTime>
+<createdTime>2020-11-30 21:03:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <shouldBeOpen>false</shouldBeOpen>
 </LogicalDesign>
