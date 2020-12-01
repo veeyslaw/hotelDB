@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="welcome_page">
        <property name="font">
@@ -368,7 +368,7 @@
         <item row="1" column="0">
          <widget class="QComboBox" name="city_combo_box">
           <property name="placeholderText">
-           <string>e.g. Iasi</string>
+           <string/>
           </property>
          </widget>
         </item>
