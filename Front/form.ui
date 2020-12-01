@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="central_widget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stacked_widget">
       <property name="font">
        <font>
@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="welcome_page">
        <property name="font">
@@ -533,7 +533,94 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="admin_page"/>
+      <widget class="QWidget" name="admin_page">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="3" column="2">
+         <widget class="QPushButton" name="remove_book_button">
+          <property name="text">
+           <string>Remove book</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="add_hotel_button">
+          <property name="text">
+           <string>Add hotel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="add_apartment_button">
+          <property name="text">
+           <string>Add apartment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="add_city_button">
+          <property name="text">
+           <string>Add city</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="update_book_button">
+          <property name="text">
+           <string>Update book</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="quit_admin_button">
+          <property name="text">
+           <string>Quit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="update_apartment_button">
+          <property name="text">
+           <string>Update apartment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="remove_apartment_button">
+          <property name="text">
+           <string>Remove apartment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="update_hotel_button">
+          <property name="text">
+           <string>Update hotel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="remove_hotel_button">
+          <property name="text">
+           <string>Remove hotel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="remove_city_button">
+          <property name="text">
+           <string>Remove city</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="update_city_button">
+          <property name="text">
+           <string>Update city</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
