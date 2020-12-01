@@ -88,5 +88,15 @@
 <colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="4F3A4321-0570-155A-E02D-E37429274D5E" name="UNIQUE_PASSPORT">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 18:29:37 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5DCDA704-4F2B-8917-8ACA-5092077A895A"/>
+</indexColumnUsage>
+</ind_PK_UK>
 </indexes>
 </Table>

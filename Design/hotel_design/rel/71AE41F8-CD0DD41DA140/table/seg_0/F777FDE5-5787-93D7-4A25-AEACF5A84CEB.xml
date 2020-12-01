@@ -45,7 +45,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="1B100E60-02B9-5000-D31E-82C831D19EBE" name="Cities_PK">
+<ind_PK_UK id="1B100E60-02B9-5000-D31E-82C831D19EBE" name="CITY_PK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:34:12 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
