@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="apartment_id" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
+<Column name="id" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -17,9 +17,11 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>4</dataTypePrecision>
 <ownDataTypeParameters>,4,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
+<Column name="HOTEL_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -74,7 +76,7 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
+<logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>10</dataTypeSize>
 <ownDataTypeParameters>10,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -152,6 +154,16 @@
 <colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="3FAA470D-F1BB-2B10-D899-9207779B700E" name="APARTMENT_ID_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 18:51:50 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="1127B213-647F-256E-4333-8CD78D721D7D" name="APARTMENT_HOTEL_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
@@ -163,4 +175,12 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="APARTMENT_CK_1" directorySegmentName="seg_0" id="E6C0DEA3-D873-8B18-EA18-B59818397D95">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 19:13:48 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[tv<1]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
 </Table>

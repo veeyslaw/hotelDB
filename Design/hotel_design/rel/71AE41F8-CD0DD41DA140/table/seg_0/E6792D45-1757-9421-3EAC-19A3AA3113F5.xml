@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="guest_id" id="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4">
+<Column name="id" id="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:12:56 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -17,6 +17,8 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="first_name" id="5B3C01F5-286B-5DE3-C964-86C86A2C9979">
@@ -88,9 +90,19 @@
 <colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="4F3A4321-0570-155A-E02D-E37429274D5E" name="UNIQUE_PASSPORT">
+<ind_PK_UK id="742E1A51-43A3-1F82-98A9-240B9AF6A712" name="GUEST_ID_PK">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:29:37 UTC</createdTime>
+<createdTime>2020-12-01 18:43:26 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="18B03D7B-F914-527E-64F5-BB5A26FDB86B" name="GUEST_PASSPORT_NUMBER_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 19:07:57 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>

@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="city_id" id="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E">
+<Column name="id" id="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:34:12 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -17,13 +17,14 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="city_name" id="52BFD61D-7584-8C86-B43F-5DA24DC28C89">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:34:12 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -51,6 +52,16 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8CD24AA1-F966-C8CA-5D75-187ABBD0FE04" name="CITY_ID_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 18:50:36 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E"/>

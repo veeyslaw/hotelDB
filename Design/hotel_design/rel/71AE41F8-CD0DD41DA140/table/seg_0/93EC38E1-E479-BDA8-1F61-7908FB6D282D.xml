@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="hotel_id" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
+<Column name="id" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:07:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -17,6 +17,8 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="hotel_name" id="01EAAF40-714B-3F97-85BD-665C46A97D8C">
@@ -30,7 +32,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="city_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
+<Column name="CITY_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:40:23 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -148,6 +150,16 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="68CD4A2C-D5B4-6A79-E068-60252237D7E0" name="HOTEL_ID_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 18:49:27 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>

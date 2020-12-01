@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="guest_id" id="B971E755-DD53-A23D-0E42-CF3F4DED0088">
+<Column name="GUEST_id" id="B971E755-DD53-A23D-0E42-CF3F4DED0088">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 18:23:40 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -23,7 +23,7 @@
 <colAssociation fkAssociation="1B4B6CA8-D13F-91E4-E9E0-F00223A1ACE9" referredColumn="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </associations>
 </Column>
-<Column name="apartment_id" id="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2">
+<Column name="APARTMENT_id" id="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 18:23:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -98,6 +98,17 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
+<colUsage columnID="BF397D21-5B51-7C7C-414F-AF146543D57E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BD89BCAC-1064-E0DB-CCED-CF3D1FAA8EE9" name="BOOKING_APARTMENT_ID_CHECK_IN_PK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 18:45:26 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
