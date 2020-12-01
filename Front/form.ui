@@ -76,16 +76,16 @@
       <widget class="QWidget" name="book_page">
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="15" column="1">
-         <widget class="QCheckBox" name="checkBox_2">
+         <widget class="QCheckBox" name="free_meals_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Free meals</string>
           </property>
          </widget>
         </item>
         <item row="16" column="1">
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="free_internet_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Free internet</string>
           </property>
          </widget>
         </item>
@@ -97,7 +97,7 @@
          </widget>
         </item>
         <item row="11" column="1">
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="rating_combo_box"/>
         </item>
         <item row="6" column="1">
          <widget class="QLabel" name="adult_label">
@@ -114,9 +114,9 @@
          </widget>
         </item>
         <item row="15" column="2">
-         <widget class="QCheckBox" name="checkBox_3">
+         <widget class="QCheckBox" name="minibar_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Minibar</string>
           </property>
          </widget>
         </item>
@@ -159,9 +159,9 @@
          </widget>
         </item>
         <item row="11" column="0">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="rating_label">
           <property name="text">
-           <string>TextLabel</string>
+           <string>Rating</string>
           </property>
          </widget>
         </item>
@@ -186,9 +186,9 @@
          </widget>
         </item>
         <item row="14" column="0">
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="facilities_label">
           <property name="text">
-           <string>TextLabel</string>
+           <string>Facilities</string>
           </property>
          </widget>
         </item>
@@ -235,9 +235,9 @@
          </widget>
         </item>
         <item row="16" column="0">
-         <widget class="QCheckBox" name="checkBox_4">
+         <widget class="QCheckBox" name="pool_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Pool</string>
           </property>
          </widget>
         </item>
@@ -249,9 +249,9 @@
          </widget>
         </item>
         <item row="16" column="2">
-         <widget class="QCheckBox" name="checkBox_6">
+         <widget class="QCheckBox" name="tv_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>TV</string>
           </property>
          </widget>
         </item>
@@ -280,9 +280,9 @@
          </widget>
         </item>
         <item row="15" column="0">
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="restaurant_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Restaurant</string>
           </property>
          </widget>
         </item>
@@ -290,22 +290,23 @@
          <widget class="QComboBox" name="adults_combo_box"/>
         </item>
         <item row="17" column="0">
-         <widget class="QCheckBox" name="checkBox_7">
+         <widget class="QCheckBox" name="ac_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Air conditioner</string>
           </property>
          </widget>
         </item>
         <item row="17" column="1">
-         <widget class="QCheckBox" name="checkBox_8">
+         <widget class="QCheckBox" name="double_bed_check_box">
           <property name="text">
-           <string>CheckBox</string>
+           <string>Double bed</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="offers_page"/>
+      <widget class="QWidget" name="check_out_page"/>
       <widget class="QWidget" name="successful_page"/>
       <widget class="QWidget" name="admin_page"/>
      </widget>
