@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="GUEST_id" id="B971E755-DD53-A23D-0E42-CF3F4DED0088">
+<Column name="GUEST_ident" id="B971E755-DD53-A23D-0E42-CF3F4DED0088">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 18:23:40 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -23,7 +23,7 @@
 <colAssociation fkAssociation="1B4B6CA8-D13F-91E4-E9E0-F00223A1ACE9" referredColumn="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </associations>
 </Column>
-<Column name="APARTMENT_id" id="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2">
+<Column name="APARTMENT_ident" id="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 18:23:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -136,4 +136,12 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="BOOKING_CK_DURATION" directorySegmentName="seg_0" id="71AB192C-5929-F4AF-EA36-DE156D677CAB">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 20:58:21 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[check_out - check_in > 0]]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
 </Table>

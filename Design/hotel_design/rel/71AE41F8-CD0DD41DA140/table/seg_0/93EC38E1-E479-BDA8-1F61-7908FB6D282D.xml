@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="id" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
+<Column name="ident" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:07:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -32,7 +32,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CITY_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
+<Column name="CITY_ident" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:40:23 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -53,7 +53,7 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
+<logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>14</dataTypeSize>
 <ownDataTypeParameters>14,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -82,7 +82,7 @@
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="description" id="B93292DE-D15C-0EED-E9FB-C79815234B29">
+<Column name="apart_desc" id="B93292DE-D15C-0EED-E9FB-C79815234B29">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:52:16 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -155,16 +155,6 @@
 <colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="68CD4A2C-D5B4-6A79-E068-60252237D7E0" name="HOTEL_ID_UN">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:49:27 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Unique Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="C80B2595-6086-9776-A3D9-56E0205486A1" name="HOTEL_CITY_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:40:23 UTC</createdTime>
@@ -176,4 +166,12 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="HOTEL_CK_PHONE" directorySegmentName="seg_0" id="FC1FF478-28D6-9DE1-DEB1-A02CF157021E">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 21:26:05 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[contact_number LIKE '+__________%']]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
 </Table>

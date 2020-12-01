@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="id" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
+<Column name="ident" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -21,7 +21,7 @@
 <identityColumn>true</identityColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="HOTEL_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
+<Column name="HOTEL_ident" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -47,7 +47,7 @@
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="capacity" id="2D12C01A-F999-6BAA-06E3-0B6F66BE6CA9">
+<Column name="apartment_capacity" id="2D12C01A-F999-6BAA-06E3-0B6F66BE6CA9">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:06:30 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -70,18 +70,7 @@
 <ownDataTypeParameters>,3,2</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="state" id="FCD7B1B4-4D49-2959-E52B-D56579F3C545">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:41:43 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>10</dataTypeSize>
-<ownDataTypeParameters>10,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="description" id="4393260B-93B6-B5E3-DCA8-B971D8BB06AE">
+<Column name="hotel_desc" id="4393260B-93B6-B5E3-DCA8-B971D8BB06AE">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:45:32 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -154,16 +143,6 @@
 <colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="3FAA470D-F1BB-2B10-D899-9207779B700E" name="APARTMENT_ID_UN">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:51:50 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Unique Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="1127B213-647F-256E-4333-8CD78D721D7D" name="APARTMENT_HOTEL_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
@@ -180,7 +159,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 19:13:48 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<rule><![CDATA[tv<1]]></rule>
+<rule><![CDATA[tv < 1]]></rule>
 </tableCheckConstraint>
 </tableCheckConstraints>
 </Table>

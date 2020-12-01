@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="id" id="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4">
+<Column name="ident" id="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:12:56 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -90,16 +90,6 @@
 <colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="742E1A51-43A3-1F82-98A9-240B9AF6A712" name="GUEST_ID_PK">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:43:26 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Unique Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="18B03D7B-F914-527E-64F5-BB5A26FDB86B" name="GUEST_PASSPORT_NUMBER_UN">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 19:07:57 UTC</createdTime>
@@ -111,4 +101,18 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="GUEST_CK_EMAIL" directorySegmentName="seg_0" id="7FBB38D1-EB57-EC11-8D33-1F67BE5338AC">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 20:57:09 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[email LIKE '_%@_%._%']]></rule>
+</tableCheckConstraint>
+<tableCheckConstraint name="GUEST_CK_PHONE" directorySegmentName="seg_0" id="F314B8BE-ABED-E8CA-18E7-532D3754F595">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 21:26:25 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[phone_number LIKE '+__________%']]></rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
 </Table>
