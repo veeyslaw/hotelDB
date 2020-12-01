@@ -30,17 +30,20 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="city_name" id="BAE3E946-6D89-915C-11EA-E8B674E1A95F">
+<Column name="city_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
 <createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:22:18 UTC</createdTime>
+<createdTime>2020-12-01 16:40:23 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="92109C00-AF30-8EC8-E7AB-5A56F0BC0FC5" referredColumn="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E"/>
+</associations>
 </Column>
 <Column name="contact_number" id="EB20CB0D-23E1-1458-B560-3CCEE93A6520">
 <createdBy>Userr</createdBy>
@@ -148,6 +151,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C80B2595-6086-9776-A3D9-56E0205486A1" name="HOTEL_CITY_FK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-01 16:40:23 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A2D9DB9E-3814-7502-98F8-3151CD1F8347"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
