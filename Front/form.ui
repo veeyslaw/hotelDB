@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="welcome_page">
        <property name="font">
@@ -416,7 +416,81 @@
        </layout>
       </widget>
       <widget class="QWidget" name="offers_page"/>
-      <widget class="QWidget" name="check_out_page"/>
+      <widget class="QWidget" name="check_out_page">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="9" column="2">
+         <widget class="QPushButton" name="confirm_button">
+          <property name="text">
+           <string>Confirm booking</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="first_name_line_edit"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="last_name_line_edit"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="last_name_label">
+          <property name="text">
+           <string>Last name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLineEdit" name="passport_line_edit"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLineEdit" name="email_line_edit"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="first_name_label">
+          <property name="text">
+           <string>First name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="phone_number_label">
+          <property name="text">
+           <string>Phone number (optional)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="passport_label">
+          <property name="text">
+           <string>Passport Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="email_label">
+          <property name="text">
+           <string>Email</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLineEdit" name="phone_number_line_edit"/>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="info_label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please note that:&lt;/p&gt;&lt;p&gt;Payment is made during check-in.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="info_label_2">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your details are only kept as &lt;/p&gt;&lt;p&gt;long as you have a reservation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="successful_page">
        <property name="font">
         <font>
