@@ -21,12 +21,14 @@
 <identityColumn>true</identityColumn>
 <autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>HOTEL_DESC_HOTEL_DESC_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>HOTEL_DESC_HOTEL_DESC_ID_TRG</autoIncrementTriggerName>
 </Column>
 <Column name="rating" id="ABE0DE5A-1398-5148-9F7D-200B6046412B">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>HOTEL_DESCRIPTION_RATING_CK</constraintName>
+<constraintName>HOTEL_DESC_RATING_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -42,7 +44,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>HOTEL_DESCRIPTION_RESTAURANT_CK</constraintName>
+<constraintName>HOTEL_DESC_RESTAURANT_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -59,7 +61,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>HOTEL_DESCRIPTION_FREE_MEALS_CK</constraintName>
+<constraintName>HOTEL_DESC_FREE_MEALS_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -76,7 +78,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>HOTEL_DESCRIPTION_POOL_CK</constraintName>
+<constraintName>HOTEL_DESC_POOL_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -93,7 +95,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>HOTEL_DESCRIPTION_FREE_INTERNET_CK</constraintName>
+<constraintName>HOTEL_DESC_FREE_INTERNET_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>

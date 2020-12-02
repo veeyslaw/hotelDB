@@ -21,6 +21,8 @@
 <identityColumn>true</identityColumn>
 <autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>APART_APART_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>APART_APART_ID_TRG</autoIncrementTriggerName>
 </Column>
 <Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
 <createdBy>Userr</createdBy>
@@ -127,7 +129,7 @@
 <colUsage columnID="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="6235CCB4-D200-4841-5D53-D382342FA2A9" name="APARTMENT_APARTMENT_DESCRIPTION_FK">
+<ind_PK_UK id="6235CCB4-D200-4841-5D53-D382342FA2A9" name="APARTMENT_APART_DESC_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:06:18 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>

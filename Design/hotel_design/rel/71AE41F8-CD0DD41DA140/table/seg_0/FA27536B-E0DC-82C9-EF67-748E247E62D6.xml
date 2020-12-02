@@ -20,12 +20,14 @@
 <identityColumn>true</identityColumn>
 <autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>APART_DESC_APART_DESC_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>APART_DESC_APART_DESC_ID_TRG</autoIncrementTriggerName>
 </Column>
 <Column name="air_conditioner" id="55E70AFE-A707-1E93-55D8-879817C07E81">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>APARTMENT_DESCRIPTION_AIR_CONDITIONER_CK</constraintName>
+<constraintName>APART_DESC_AIR_CONDITIONER_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -42,7 +44,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>APARTMENT_DESCRIPTION_MINIBAR_CK</constraintName>
+<constraintName>APART_DESC_MINIBAR_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -59,7 +61,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>APARTMENT_DESCRIPTION_TV_CK</constraintName>
+<constraintName>APART_DESC_TV_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -76,7 +78,7 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>APARTMENT_DESCRIPTION_DOUBLE_BED_CK</constraintName>
+<constraintName>APART_DESC_DOUBLE_BED_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -91,7 +93,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="5EF4C855-D66C-E4E7-4BE1-ADA0C03ADD93" name="APARTMENT_DESCRIPTION_PK">
+<ind_PK_UK id="5EF4C855-D66C-E4E7-4BE1-ADA0C03ADD93" name="APART_DESC_PK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:04:25 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>

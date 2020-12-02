@@ -21,6 +21,8 @@
 <identityColumn>true</identityColumn>
 <autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>HOTEL_HOTEL_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>HOTEL_HOTEL_ID_TRG</autoIncrementTriggerName>
 </Column>
 <Column name="hotel_name" id="01EAAF40-714B-3F97-85BD-665C46A97D8C">
 <createdBy>Userr</createdBy>

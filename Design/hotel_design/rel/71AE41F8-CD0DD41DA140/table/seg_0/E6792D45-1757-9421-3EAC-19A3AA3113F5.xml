@@ -20,6 +20,8 @@
 <identityColumn>true</identityColumn>
 <autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>GUEST_GUEST_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>GUEST_GUEST_ID_TRG</autoIncrementTriggerName>
 </Column>
 <Column name="first_name" id="5B3C01F5-286B-5DE3-C964-86C86A2C9979">
 <createdBy>Userr</createdBy>
