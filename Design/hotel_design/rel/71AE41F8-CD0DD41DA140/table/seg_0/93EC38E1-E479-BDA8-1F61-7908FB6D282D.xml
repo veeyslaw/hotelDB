@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="ident" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
+<Column name="hotel_id" id="28E7CEF0-BEB4-501B-34D2-E76C28FE1370">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:07:44 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -32,7 +32,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="CITY_ident" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
+<Column name="city_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:40:23 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -70,77 +70,20 @@
 <ownDataTypeParameters>200,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="rating" id="A0246283-E27E-3507-A4B1-4BD8C7CCC34A">
+<Column name="hotel_desc_id" id="F90DDCD8-FB90-F1D9-37DD-751522283D5A">
 <createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:47:56 UTC</createdTime>
+<createdTime>2020-12-02 11:12:18 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="apart_desc" id="B93292DE-D15C-0EED-E9FB-C79815234B29">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:52:16 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200</dataTypeSize>
-<ownDataTypeParameters>200,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="restaurant" id="3A41736A-1D56-2764-3F5D-1FEBC16C4E8D">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:47:56 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="free_meals" id="E2C2C6EC-B348-3595-7A75-8983CCB1A476">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:48:26 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="pool" id="999B7401-E39E-17F1-8286-45DF25C9C46B">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:47:56 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="free_internet" id="64F8DDD0-5F9D-6F4C-CD58-33EDD59F5735">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:47:56 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A4C87F7E-6A56-5DAF-1F97-6B4BC866A1B1" referredColumn="EBC1AF6A-D378-5FDB-9F31-473024FD982E"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -163,6 +106,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="A2D9DB9E-3814-7502-98F8-3151CD1F8347"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0584ABED-8514-2686-4A09-6FA8648E5944" name="HOTEL_HOTEL_DESCRIPTION_FK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-02 11:12:18 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F90DDCD8-FB90-F1D9-37DD-751522283D5A"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
