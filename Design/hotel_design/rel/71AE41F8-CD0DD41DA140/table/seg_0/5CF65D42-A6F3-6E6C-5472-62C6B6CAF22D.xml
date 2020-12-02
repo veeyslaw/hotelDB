@@ -15,31 +15,26 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="rating" id="ABE0DE5A-1398-5148-9F7D-200B6046412B">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_DESCRIPTION_RATING_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="text_desc" id="6BF0F012-5AEF-0F53-41A3-8F43AC068B62">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:12:07 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="rating BETWEEN 1 AND 5"/>
+</checkConstraint>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -47,11 +42,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_DESCRIPTION_RESTAURANT_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -59,11 +59,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_DESCRIPTION_FREE_MEALS_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -71,11 +76,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_DESCRIPTION_POOL_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -83,11 +93,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:12:07 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_DESCRIPTION_FREE_INTERNET_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

@@ -3,7 +3,6 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:01:49 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<ordsAlias>table_7</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -19,29 +18,23 @@
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="text_desc" id="16639F83-9E0A-87D4-C8F9-4FC508944DFA">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:04:25 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="air_conditioner" id="55E70AFE-A707-1E93-55D8-879817C07E81">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_DESCRIPTION_AIR_CONDITIONER_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -49,11 +42,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_DESCRIPTION_MINIBAR_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -61,11 +59,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_DESCRIPTION_TV_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -73,11 +76,16 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_DESCRIPTION_DOUBLE_BED_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<listOfValues>
+<valueDef value="0" description="FALSE"/>
+<valueDef value="1" description="TRUE"/>
+</listOfValues>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

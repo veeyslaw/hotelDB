@@ -15,11 +15,11 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>4</dataTypePrecision>
-<ownDataTypeParameters>,4,</ownDataTypeParameters>
+<dataTypePrecision>2</dataTypePrecision>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
-<autoIncrementMaxValue>9999</autoIncrementMaxValue>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
@@ -41,10 +41,14 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_ROOM_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="room_number BETWEEN 1 AND 4"/>
+</checkConstraint>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -52,23 +56,27 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:06:30 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>APARTMENT_APART_CAPACITY_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<dataTypePrecision>2</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="apart_capacity BETWEEN 1 AND 20"/>
+</checkConstraint>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="price_per_night" id="29E9FE43-A95A-AF87-8C99-3E346EE7648C">
+<Column name="price_per_night_euro" id="29E9FE43-A95A-AF87-8C99-3E346EE7648C">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT043</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
+<dataTypePrecision>4</dataTypePrecision>
 <dataTypeScale>2</dataTypeScale>
-<ownDataTypeParameters>,3,2</ownDataTypeParameters>
+<ownDataTypeParameters>,4,2</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="apart_desc_id" id="E3B9226D-1B09-C258-D5B8-0CCA3F8C8CB2">
@@ -97,6 +105,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BC7ACFF8-0544-16B8-9872-54410835B21E" name="APARTMENT_APART_DESC_ID_UN">
+<createdBy>mnkeylaw</createdBy>
+<createdTime>2020-12-02 19:20:58 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E3B9226D-1B09-C258-D5B8-0CCA3F8C8CB2"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="1127B213-647F-256E-4333-8CD78D721D7D" name="APARTMENT_HOTEL_FK">

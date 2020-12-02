@@ -30,7 +30,7 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>4</dataTypePrecision>
+<dataTypePrecision>2</dataTypePrecision>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -72,22 +72,30 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:05:16 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>BOOKING_ADULTS_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<dataTypePrecision>2</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="adults_number BETWEEN 1 AND 20"/>
+</checkConstraint>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="children_number" id="63BCB3DB-BA07-8645-2271-178397B6AC4F">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:05:45 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>BOOKING_CHILDREN_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>1</dataTypePrecision>
-<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<dataTypePrecision>2</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="children_number BETWEEN 0 AND 19"/>
+</checkConstraint>
+<ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
@@ -98,17 +106,6 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
-<colUsage columnID="BF397D21-5B51-7C7C-414F-AF146543D57E"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="BD89BCAC-1064-E0DB-CCED-CF3D1FAA8EE9" name="BOOKING_APARTMENT_ID_CHECK_IN_PK">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:45:26 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
@@ -137,7 +134,7 @@
 </ind_PK_UK>
 </indexes>
 <tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
-<tableCheckConstraint name="BOOKING_CK_DURATION" directorySegmentName="seg_0" id="71AB192C-5929-F4AF-EA36-DE156D677CAB">
+<tableCheckConstraint name="BOOKING_DURATION_CK" directorySegmentName="seg_0" id="71AB192C-5929-F4AF-EA36-DE156D677CAB">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 20:58:21 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>

@@ -3,7 +3,6 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:11:45 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<ordsAlias>table_5</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -19,16 +18,21 @@
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="first_name" id="5B3C01F5-286B-5DE3-C964-86C86A2C9979">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:12:56 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>GUEST_FIRST_NAME_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(first_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -36,10 +40,14 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:12:56 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>GUEST_LAST_NAME_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(last_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -47,34 +55,46 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:12:56 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>GUEST_PASSPORT_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>15</dataTypeSize>
-<ownDataTypeParameters>15,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="INSTR(passport_number, &apos; &apos;) = 0 AND LENGTH(TRIM(TRANSLATE(passport_number, &apos;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="email" id="7F59228D-7118-76C1-8F56-9680E4CF8941">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:35:09 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>GUEST_EMAIL_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<dataTypeSize>400</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="email LIKE &apos;_%@_%._%&apos;"/>
+</checkConstraint>
+<ownDataTypeParameters>400,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="phone_number" id="AE37498D-2141-A938-9C06-EFB6CE9F934D">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:39:48 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>GUEST_PHONE_NUMBER_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>14</dataTypeSize>
-<ownDataTypeParameters>14,,</ownDataTypeParameters>
+<dataTypeSize>15</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="phone_number LIKE &apos;+%&apos; AND LENGTH(TRIM(TRANSLATE(SUBSTR(phone_number, 2), &apos;0123456789&apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
@@ -101,18 +121,4 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
-<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
-<tableCheckConstraint name="GUEST_CK_EMAIL" directorySegmentName="seg_0" id="7FBB38D1-EB57-EC11-8D33-1F67BE5338AC">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 20:57:09 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<rule><![CDATA[email LIKE '_%@_%._%']]></rule>
-</tableCheckConstraint>
-<tableCheckConstraint name="GUEST_CK_PHONE" directorySegmentName="seg_0" id="F314B8BE-ABED-E8CA-18E7-532D3754F595">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 21:26:25 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<rule><![CDATA[phone_number LIKE '+__________%']]></rule>
-</tableCheckConstraint>
-</tableCheckConstraints>
 </Table>

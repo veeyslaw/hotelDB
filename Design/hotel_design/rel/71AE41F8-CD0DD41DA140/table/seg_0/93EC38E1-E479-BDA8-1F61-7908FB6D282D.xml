@@ -19,6 +19,7 @@
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="hotel_name" id="01EAAF40-714B-3F97-85BD-665C46A97D8C">
@@ -28,8 +29,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="city_id" id="A2D9DB9E-3814-7502-98F8-3151CD1F8347">
@@ -51,23 +52,31 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:08:23 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_CONTACT_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>14</dataTypeSize>
-<ownDataTypeParameters>14,,</ownDataTypeParameters>
+<dataTypeSize>15</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="contact_number LIKE &apos;+%&apos; AND LENGTH(TRIM(TRANSLATE(SUBSTR(contact_number, 2), &apos;0123456789&apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="manager_name" id="DFAB4568-BC61-FECE-0990-D27CC520031D">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:28:31 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>HOTEL_MANAGER_NAME_CK</constraintName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200</dataTypeSize>
-<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<dataTypeSize>666</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(manager_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(manager_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
+<ownDataTypeParameters>666,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="hotel_desc_id" id="F90DDCD8-FB90-F1D9-37DD-751522283D5A">
@@ -78,7 +87,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
@@ -96,6 +105,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3369A43B-322C-0E2E-BB97-E04206FE670A" name="HOTEL_HOTEL_DESC_ID_UN">
+<createdBy>mnkeylaw</createdBy>
+<createdTime>2020-12-02 19:20:38 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F90DDCD8-FB90-F1D9-37DD-751522283D5A"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="C80B2595-6086-9776-A3D9-56E0205486A1" name="HOTEL_CITY_FK">
@@ -119,12 +138,4 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
-<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
-<tableCheckConstraint name="HOTEL_CK_PHONE" directorySegmentName="seg_0" id="FC1FF478-28D6-9DE1-DEB1-A02CF157021E">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-01 21:26:05 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<rule><![CDATA[contact_number LIKE '+__________%']]></rule>
-</tableCheckConstraint>
-</tableCheckConstraints>
 </Table>

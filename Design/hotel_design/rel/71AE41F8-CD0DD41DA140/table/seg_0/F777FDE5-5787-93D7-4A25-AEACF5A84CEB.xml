@@ -19,16 +19,21 @@
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="city_name" id="52BFD61D-7584-8C86-B43F-5DA24DC28C89">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:34:12 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
+<constraintName>CITY_CITY_NAME_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(city_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(city_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+</checkConstraint>
 <ownDataTypeParameters>20,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -55,6 +60,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="3A67B8AD-E3E2-D35B-0054-3F63ED11FA0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2B376429-E4E9-0BEB-B252-AE01EEC9E37D" name="CITY_CITY_NAME_UN">
+<createdBy>mnkeylaw</createdBy>
+<createdTime>2020-12-02 18:44:03 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="52BFD61D-7584-8C86-B43F-5DA24DC28C89"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
