@@ -81,21 +81,6 @@
 <ownDataTypeParameters>,4,2</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="apart_desc_id" id="E3B9226D-1B09-C258-D5B8-0CCA3F8C8CB2">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:06:18 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>2</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="91FC09CA-0252-C4CB-C328-A47AA0F1B2F0" referredColumn="E4C92A3C-A202-EB39-521C-FAB28564722A"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="93AD8A6F-5A59-01BA-82A5-4C19D8C87C34" name="APARTMENT_PK">
@@ -109,16 +94,6 @@
 <colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BC7ACFF8-0544-16B8-9872-54410835B21E" name="APARTMENT_APART_DESC_ID_UN">
-<createdBy>mnkeylaw</createdBy>
-<createdTime>2020-12-02 19:20:58 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Unique Constraint</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="E3B9226D-1B09-C258-D5B8-0CCA3F8C8CB2"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="1127B213-647F-256E-4333-8CD78D721D7D" name="APARTMENT_HOTEL_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
@@ -127,16 +102,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="6235CCB4-D200-4841-5D53-D382342FA2A9" name="APARTMENT_APART_DESC_FK">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:06:18 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="E3B9226D-1B09-C258-D5B8-0CCA3F8C8CB2"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

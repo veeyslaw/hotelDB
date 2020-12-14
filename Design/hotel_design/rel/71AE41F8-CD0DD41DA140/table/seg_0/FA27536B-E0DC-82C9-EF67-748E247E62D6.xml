@@ -7,21 +7,31 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="apart_desc_id" id="E4C92A3C-A202-EB39-521C-FAB28564722A">
+<Column name="apart_id" id="7CFF629E-B1BE-5AB8-15AF-B59E9DA15ADD">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:04:25 UTC</createdTime>
+<createdTime>2020-12-09 09:34:46 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
-<ownDataTypeParameters>,2,</ownDataTypeParameters>
-<autoIncrementColumn>true</autoIncrementColumn>
-<identityColumn>true</identityColumn>
-<autoIncrementMaxValue>99</autoIncrementMaxValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementSequenceName>APART_DESC_APART_DESC_ID_SEQ</autoIncrementSequenceName>
-<autoIncrementTriggerName>APART_DESC_APART_DESC_ID_TRG</autoIncrementTriggerName>
+<associations>
+<colAssociation fkAssociation="FEC6CCD6-9B22-5164-F8F7-19DD2EFC6D00" referredColumn="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+</associations>
+</Column>
+<Column name="text_desc" id="FB4E02C8-05B7-F5A6-639E-D95AF52CC1BC">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-09 09:49:14 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="air_conditioner" id="55E70AFE-A707-1E93-55D8-879817C07E81">
 <createdBy>Userr</createdBy>
@@ -101,7 +111,17 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="E4C92A3C-A202-EB39-521C-FAB28564722A"/>
+<colUsage columnID="7CFF629E-B1BE-5AB8-15AF-B59E9DA15ADD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="34C8E4BA-E6F1-EFE4-F16B-C5027DA338C6" name="APARTMENT_DESCRIPTION_APARTMENT_FK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-09 09:34:46 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7CFF629E-B1BE-5AB8-15AF-B59E9DA15ADD"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

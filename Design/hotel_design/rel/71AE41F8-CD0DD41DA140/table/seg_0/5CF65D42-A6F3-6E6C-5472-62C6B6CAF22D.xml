@@ -8,21 +8,31 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="hotel_desc_id" id="EBC1AF6A-D378-5FDB-9F31-473024FD982E">
+<Column name="hotel_id" id="0106CB78-498F-0B80-D80F-44A66749F0E8">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-02 11:12:07 UTC</createdTime>
+<createdTime>2020-12-09 09:43:52 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
-<ownDataTypeParameters>,2,</ownDataTypeParameters>
-<autoIncrementColumn>true</autoIncrementColumn>
-<identityColumn>true</identityColumn>
-<autoIncrementMaxValue>99</autoIncrementMaxValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementSequenceName>HOTEL_DESC_HOTEL_DESC_ID_SEQ</autoIncrementSequenceName>
-<autoIncrementTriggerName>HOTEL_DESC_HOTEL_DESC_ID_TRG</autoIncrementTriggerName>
+<associations>
+<colAssociation fkAssociation="19FEDAA9-2790-49AB-73C1-4964AEA5858E" referredColumn="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
+</associations>
+</Column>
+<Column name="text_desc" id="9EC719B0-B92C-533A-7353-DE60BEBCD146">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-09 09:49:40 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="rating" id="ABE0DE5A-1398-5148-9F7D-200B6046412B">
 <createdBy>Userr</createdBy>
@@ -118,7 +128,17 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="EBC1AF6A-D378-5FDB-9F31-473024FD982E"/>
+<colUsage columnID="0106CB78-498F-0B80-D80F-44A66749F0E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F95D7A4B-19DF-599A-469C-B4B36EA02808" name="HOTEL_DESCRIPTION_HOTEL_FK">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-09 09:43:52 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0106CB78-498F-0B80-D80F-44A66749F0E8"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
