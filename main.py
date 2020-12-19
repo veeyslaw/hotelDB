@@ -102,7 +102,7 @@ class MainWindow(QMainWindow):
         # TODO transaction offer
         self.first_name_line_edit.clear()
         self.last_name_line_edit.clear()
-        self.passport_number_line_edit.clear()
+        self.passport_line_edit.clear()
         self.email_line_edit.clear()
         self.phone_number_line_edit.clear()
         self.main_stacked_widget.setCurrentIndex(MainWindow.CHECK_OUT_PAGE)
@@ -137,7 +137,7 @@ class MainWindow(QMainWindow):
     def search_booking(self):
         hotel_name = str(self.hotel_name_line_edit_3.text())
         apartment_number = self.apartment_number_spin_box_2.value()
-        passport_number = str(self.passport_number_line_edit_2.text())
+        passport_number = str(self.passport_line_edit_2.text())
         check_in = self.check_in_date_edit_2.date()
         # TODO querry bd for them
         items = None
@@ -146,7 +146,7 @@ class MainWindow(QMainWindow):
     def search_guest(self):
         first_name = str(self.first_name_line_edit_2.text())
         last_name = str(self.last_name_line_edit_2.text())
-        passport_number = str(self.passport_number_line_edit_3.text())
+        passport_number = str(self.passport_line_edit_3.text())
         email = str(self.email_line_edit_2.text())
         # TODO querry bd for them
         items = None
@@ -160,8 +160,12 @@ class MainWindow(QMainWindow):
         self.apartment_number_spin_box.setValue(0)
         self.hotel_name_line_edit_3.clear()
         self.apartment_number_spin_box_2.setValue(0)
-        self.passport_number_line_edit_2.clear()
+        self.passport_line_edit_2.clear()
         # TODO set check in date to sysdate
+        self.first_name_line_edit_2.clear()
+        self.last_name_line_edit_2.clear()
+        self.passport_line_edit_3.clear()
+        self.email_line_edit_2.clear()
 
     def search_admin(self):
         index = self.search_combo_box.currentIndex()
