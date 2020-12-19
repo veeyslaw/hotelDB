@@ -33,7 +33,7 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(first_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(first_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- &apos;, &apos; &apos;))) IS NULL"/>
 </checkConstraint>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -48,7 +48,7 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(last_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(last_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(last_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- &apos;, &apos; &apos;))) IS NULL"/>
 </checkConstraint>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>

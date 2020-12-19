@@ -76,7 +76,7 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>666</dataTypeSize>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(manager_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(manager_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ &apos;, &apos; &apos;))) IS NULL"/>
+<implementationDef dbType="Generic Constraint" definition="LENGTH(TRIM(manager_name)) IS NOT NULL AND LENGTH(TRIM(TRANSLATE(manager_name, &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- &apos;, &apos; &apos;))) IS NULL"/>
 </checkConstraint>
 <ownDataTypeParameters>666,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
