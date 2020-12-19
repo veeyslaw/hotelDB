@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
+    <width>892</width>
     <height>600</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
          </font>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="welcome_page">
          <property name="font">
@@ -90,107 +90,12 @@
           <bool>false</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="15" column="1">
-           <widget class="QCheckBox" name="free_meals_check_box">
-            <property name="text">
-             <string>Free meals</string>
-            </property>
-           </widget>
-          </item>
-          <item row="16" column="1">
-           <widget class="QCheckBox" name="free_internet_check_box">
-            <property name="text">
-             <string>Free internet</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="check_out_label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Check-out</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="1">
-           <widget class="QComboBox" name="rating_combo_box"/>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLabel" name="adult_label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Adults</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="city_label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Where to?</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="15" column="2">
-           <widget class="QCheckBox" name="minibar_check_box">
-            <property name="text">
-             <string>Minibar</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="rooms_label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Rooms</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="Line" name="line_7">
+          <item row="5" column="0">
+           <widget class="Line" name="line">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
-          </item>
-          <item row="7" column="2">
-           <widget class="QComboBox" name="children_combo_box"/>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="check_in_label">
@@ -209,42 +114,46 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="Line" name="line_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="Line" name="line_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
-           <widget class="QLabel" name="rating_label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Rating</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QDateEdit" name="check_out_date_edit"/>
           </item>
+          <item row="16" column="1">
+           <widget class="QCheckBox" name="free_internet_check_box">
+            <property name="text">
+             <string>Free internet</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="Line" name="line_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="0">
            <widget class="QDateEdit" name="check_in_date_edit"/>
+          </item>
+          <item row="18" column="1">
+           <widget class="QCheckBox" name="double_bed_check_box">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Double bed</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="0">
+           <widget class="QCheckBox" name="pool_check_box">
+            <property name="text">
+             <string>Pool</string>
+            </property>
+           </widget>
           </item>
           <item row="13" column="0">
            <widget class="Line" name="line_10">
@@ -253,10 +162,56 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="Line" name="line_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+          <item row="11" column="1">
+           <widget class="QComboBox" name="rating_combo_box"/>
+          </item>
+          <item row="7" column="2">
+           <widget class="QComboBox" name="children_combo_box"/>
+          </item>
+          <item row="7" column="1">
+           <widget class="QComboBox" name="adults_combo_box"/>
+          </item>
+          <item row="7" column="0">
+           <widget class="QComboBox" name="rooms_combo_box"/>
+          </item>
+          <item row="15" column="1">
+           <widget class="QCheckBox" name="free_meals_check_box">
+            <property name="text">
+             <string>Free meals</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="days_label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>1 Days</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLabel" name="adult_label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Adults</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -274,20 +229,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="Line" name="line_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -315,15 +256,29 @@
             </property>
            </widget>
           </item>
-          <item row="13" column="1">
-           <widget class="Line" name="line_11">
+          <item row="1" column="0">
+           <widget class="QComboBox" name="city_combo_box">
+            <property name="placeholderText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="Line" name="line_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="4" column="2">
-           <widget class="QLabel" name="days_label">
+          <item row="18" column="0">
+           <widget class="QCheckBox" name="ac_check_box">
+            <property name="text">
+             <string>Air conditioner</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="rooms_label">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -332,24 +287,55 @@
              </font>
             </property>
             <property name="text">
-             <string>Days</string>
+             <string>Rooms</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="16" column="0">
-           <widget class="QCheckBox" name="pool_check_box">
+          <item row="15" column="0">
+           <widget class="QCheckBox" name="restaurant_check_box">
             <property name="text">
-             <string>Pool</string>
+             <string>Restaurant</string>
             </property>
            </widget>
           </item>
-          <item row="13" column="2">
-           <widget class="Line" name="line_12">
+          <item row="2" column="1">
+           <widget class="Line" name="line_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="2">
+           <widget class="QCheckBox" name="minibar_check_box">
+            <property name="text">
+             <string>Minibar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="1">
+           <widget class="Line" name="line_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="check_out_label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Check-out</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -367,15 +353,60 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QComboBox" name="city_combo_box">
-            <property name="placeholderText">
-             <string/>
+          <item row="0" column="0">
+           <widget class="QLabel" name="city_label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Where to?</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QComboBox" name="rooms_combo_box"/>
+          <item row="13" column="2">
+           <widget class="Line" name="line_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="0">
+           <widget class="QLabel" name="rating_label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Rating</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="Line" name="line_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="Line" name="line_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
           </item>
           <item row="8" column="1">
            <widget class="Line" name="line_8">
@@ -384,34 +415,17 @@
             </property>
            </widget>
           </item>
-          <item row="15" column="0">
-           <widget class="QCheckBox" name="restaurant_check_box">
-            <property name="text">
-             <string>Restaurant</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QComboBox" name="adults_combo_box"/>
-          </item>
-          <item row="17" column="0">
-           <widget class="QCheckBox" name="ac_check_box">
-            <property name="text">
-             <string>Air conditioner</string>
-            </property>
-           </widget>
-          </item>
-          <item row="17" column="1">
-           <widget class="QCheckBox" name="double_bed_check_box">
+          <item row="18" column="2">
+           <widget class="QPushButton" name="search_button">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
-              <weight>50</weight>
-              <bold>false</bold>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Double bed</string>
+             <string>Search</string>
             </property>
            </widget>
           </item>
@@ -580,7 +594,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="city_page">
              <layout class="QGridLayout" name="gridLayout_6">
@@ -663,7 +677,116 @@
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="booking_page"/>
+            <widget class="QWidget" name="booking_page">
+             <layout class="QGridLayout" name="gridLayout_10">
+              <item row="2" column="0">
+               <widget class="QLabel" name="passport_number_label_2">
+                <property name="text">
+                 <string>Passport number</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QSpinBox" name="apartment_number_spin_box_2">
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::NoButtons</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="hotel_name_line_edit_3"/>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="apartment_number_label_2">
+                <property name="text">
+                 <string>Apartment number</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="hotel_name_label_3">
+                <property name="text">
+                 <string>Hotel name</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QLabel" name="check_in_label_2">
+                <property name="text">
+                 <string>Check-in</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="passport_number_line_edit_2"/>
+              </item>
+              <item row="2" column="4">
+               <widget class="QDateEdit" name="check_in_date_edit_2"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="guest_page">
+             <layout class="QGridLayout" name="gridLayout_11">
+              <item row="1" column="2">
+               <widget class="QLabel" name="email_label_2">
+                <property name="text">
+                 <string>Email</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="passport_number_line_edit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="passport_number_label">
+                <property name="text">
+                 <string>Passport number</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QLineEdit" name="email_line_edit_2"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="first_name_label_2">
+                <property name="text">
+                 <string>First name</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="first_name_line_edit_2"/>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLineEdit" name="last_name_line_edit_2"/>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="last_name_label_2">
+                <property name="text">
+                 <string>Last name</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
           <item>
@@ -681,7 +804,7 @@
              <widget class="QComboBox" name="search_combo_box"/>
             </item>
             <item>
-             <widget class="QPushButton" name="search_button">
+             <widget class="QPushButton" name="search_button_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
