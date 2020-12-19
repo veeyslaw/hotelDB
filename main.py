@@ -24,13 +24,22 @@ class MainWindow(QMainWindow):
     def connect_buttons(self):
         self.book_buttont.clicked.connect(self.go_to_book_page)
         self.admin_button.clicked.connect(self.go_to_admin_page)
-        
+        self.search_button.clicked.connect(self.search_bookings)
+
+    def set_city_options(self):
+        # TODO querry db for cities. add them to combo
+        pass
 
     def go_to_book_page(self):
         self.main_stacked_widget.setCurrentIndex(MainWindow.WELCOME_PAGE)
+        self.set_city_options()
 
     def go_to_admin_page(self):
         self.main_stacked_widget.setCurrentIndex(MainWindow.ADMIN_PAGE)
+
+    def search_bookings(self):
+        city = str(self.city_combo_box.currentText())
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
