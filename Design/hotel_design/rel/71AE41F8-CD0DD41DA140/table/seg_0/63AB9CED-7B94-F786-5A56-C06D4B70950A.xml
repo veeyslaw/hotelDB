@@ -157,5 +157,11 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <rule><![CDATA[check_out - check_in > 0]]></rule>
 </tableCheckConstraint>
+<tableCheckConstraint name="BOOKING_NOT_PAST_CK" directorySegmentName="seg_0" id="A563A1F4-DD76-B776-8B41-651DFFD4C797">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-19 15:44:56 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<rule><![CDATA[check_in - book_date >= 0]]></rule>
+</tableCheckConstraint>
 </tableCheckConstraints>
 </Table>
