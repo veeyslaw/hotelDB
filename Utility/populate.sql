@@ -103,4 +103,42 @@ INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, mini
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3, 1, 1, 1, 0);
 
 -- BOOKINGS
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 1 FROM DUAL), (SELECT SYSDATE + 7 FROM DUAL), 3, 1);
 
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 13 FROM DUAL), (SELECT SYSDATE + 20 FROM DUAL), 1, 3);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 8 FROM DUAL), (SELECT SYSDATE + 12 FROM DUAL), 2, 0);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 16 FROM DUAL), (SELECT SYSDATE + 30 FROM DUAL), 2, 0);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 10 FROM DUAL), (SELECT SYSDATE + 15 FROM DUAL), 2, 2);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 6 FROM DUAL), (SELECT SYSDATE + 10 FROM DUAL), 2, 2);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 1 FROM DUAL), (SELECT SYSDATE + 5 FROM DUAL), 2, 0);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'MDC52522'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE FROM DUAL), (SELECT SYSDATE + 2 FROM DUAL), 7, 0);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'UK2432L52342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 4 FROM DUAL), (SELECT SYSDATE + 15 FROM DUAL), 3, 0);
+
+INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'IT251NA321542'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+    (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE FROM DUAL), (SELECT SYSDATE + 6 FROM DUAL), 4, 0);
