@@ -114,7 +114,7 @@
 <colUsage columnID="7CFF629E-B1BE-5AB8-15AF-B59E9DA15ADD"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="34C8E4BA-E6F1-EFE4-F16B-C5027DA338C6" name="APARTMENT_DESCRIPTION_APARTMENT_FK">
+<ind_PK_UK id="34C8E4BA-E6F1-EFE4-F16B-C5027DA338C6" name="APARTMENT_DESC_APARTMENT_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-09 09:34:46 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
