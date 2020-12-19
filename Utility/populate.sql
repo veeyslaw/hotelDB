@@ -21,7 +21,7 @@ VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotelul se afla in centrul orasului, in apr
 INSERT INTO HOTEL (hotel_name, city_id, contact_number, manager_name)
 VALUES ('Universitatea Hotel', (SELECT city_id FROM CITY WHERE city_name = 'Iasi'), '+40753489232', 'Adrian Bagiu');
 INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc, rating, restaurant, free_meals, pool, free_internet)
-VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotel pentru studenti si nu numai. Chiar vis-a-vis de Universitatea Alexandru Ioan Cuza.', 3, 1, 0, 0, 1);
+VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotel pentru studenti vis-a-vis de Universitatea Alexandru Ioan Cuza.', 3, 1, 0, 0, 1);
 
 
 INSERT INTO HOTEL (hotel_name, city_id, contact_number, manager_name)
@@ -36,71 +36,71 @@ INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc, rating, restaurant, free_mea
 VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Vacanta pe malul marii.', 4, 1, 1, 1, 1);
 
 
-INSERT INTO HOTEL (hotel_name, city_id, contact_number, manager_name)
+INSERT INTO HOTEL (hotel_name, city_id, contact_number)
 VALUES ('Peak Hotel', (SELECT city_id FROM CITY WHERE city_name = 'Sinaia'), '+40753499992');
 INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc, rating, restaurant, free_meals, pool, free_internet)
 VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotelul se afla pe varful muntelui. Toate apartementele au o priveliste minunata.', 5, 1, 1, 1, 1);
 
 -- APARTMENTS AND DESCRIPTIONS
 -- stefan
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 3, 6, 300);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 1, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 1, 3, 6, 300);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 1, 1, 1, 1, 1);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 2, 200);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 1, 0);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 2, 2, 200);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 1, 1, 1, 0);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 3, 150);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 0, 1, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10, 2, 3, 150);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10, 1, 0, 1, 1);
 
 -- univer
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 2, 75);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 0, 0, 0);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 1, 2, 75);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 1, 0, 0, 0);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 2, 50);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 0, 0, 0, 0);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2, 1, 2, 50);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2, 0, 0, 0, 0);
 
 -- city
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 2, 3, 125);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 0, 0, 0, 0);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 10, 2, 3, 125);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 10, 0, 0, 0, 0);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 1, 3, 100);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 0, 0, 0, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20, 1, 3, 100);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20, 0, 0, 0, 1);
 
 -- constan
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 2, 4, 200);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 0, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100, 2, 4, 200);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100, 1, 1, 0, 1);
 
 -- peak
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 1, 2, 150);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 1, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 1, 1, 2, 150);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 1, 1, 1, 1, 1);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2, 4, 225);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 1, 1);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2, 2, 4, 225);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2, 1, 1, 1, 1);
 
-INSERT INTO APARTMENT (hotel_id, room_number, apart_capacity, price_per_night_euro)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 4, 8, 375);
-INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
-VALUES (APART_APART_ID_SEQ.CURRVAL, 1, 1, 1, 0);
+INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3, 4, 8, 375);
+INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
+VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3, 1, 1, 1, 0);
 
 -- BOOKINGS
 

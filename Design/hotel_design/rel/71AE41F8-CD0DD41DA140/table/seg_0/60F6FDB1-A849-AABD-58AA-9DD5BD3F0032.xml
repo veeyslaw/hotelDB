@@ -46,7 +46,7 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="room_number BETWEEN 1 AND 4"/>
+<implementationDef dbType="Generic Constraint" definition="room_count BETWEEN 1 AND 4"/>
 </checkConstraint>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -73,9 +73,9 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT043</logicalDatatype>
-<dataTypePrecision>4</dataTypePrecision>
+<dataTypePrecision>6</dataTypePrecision>
 <dataTypeScale>2</dataTypeScale>
-<ownDataTypeParameters>,4,2</ownDataTypeParameters>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

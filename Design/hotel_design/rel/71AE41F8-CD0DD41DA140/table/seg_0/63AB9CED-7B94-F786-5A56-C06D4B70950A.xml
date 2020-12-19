@@ -93,7 +93,7 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="adults_number BETWEEN 1 AND 20"/>
+<implementationDef dbType="Generic Constraint" definition="adults_count BETWEEN 1 AND 20"/>
 </checkConstraint>
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -108,7 +108,7 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>2</dataTypePrecision>
 <checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="children_number BETWEEN 0 AND 19"/>
+<implementationDef dbType="Generic Constraint" definition="children_count BETWEEN 0 AND 19"/>
 </checkConstraint>
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
