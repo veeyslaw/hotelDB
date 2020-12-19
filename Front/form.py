@@ -37,7 +37,6 @@ class Ui_main_window(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.welcome_label.setFont(font)
-        self.welcome_label.setStyleSheet("border-image: url(:/Front/Images/Beach.png) 0 0 0 0 stretch stretch;")
         self.welcome_label.setScaledContents(True)
         self.welcome_label.setObjectName("welcome_label")
         self.gridLayout_2.addWidget(self.welcome_label, 0, 0, 1, 1)
@@ -340,7 +339,6 @@ class Ui_main_window(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.successful_label.sizePolicy().hasHeightForWidth())
         self.successful_label.setSizePolicy(sizePolicy)
-        self.successful_label.setStyleSheet("border-image: url(:/Front/Images/Mountain.png) 0 0 0 0 stretch stretch;")
         self.successful_label.setAlignment(QtCore.Qt.AlignCenter)
         self.successful_label.setObjectName("successful_label")
         self.gridLayout_4.addWidget(self.successful_label, 0, 0, 1, 1)
@@ -570,4 +568,3 @@ class Ui_main_window(object):
         self.last_name_label_2.setText(_translate("main_window", "Last name"))
         self.search_button_2.setText(_translate("main_window", "Search"))
         self.quit_admin_button.setText(_translate("main_window", "Quit"))
-import resources_rc

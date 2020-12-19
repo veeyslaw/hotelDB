@@ -7,6 +7,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         loadUi("Front/form.ui", self)
 
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
