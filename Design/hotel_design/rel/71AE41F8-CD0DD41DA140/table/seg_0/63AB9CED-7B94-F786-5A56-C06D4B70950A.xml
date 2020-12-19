@@ -23,9 +23,9 @@
 <colAssociation fkAssociation="1B4B6CA8-D13F-91E4-E9E0-F00223A1ACE9" referredColumn="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </associations>
 </Column>
-<Column name="apart_id" id="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2">
+<Column name="hotel_id" id="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:23:44 UTC</createdTime>
+<createdTime>2020-12-19 14:47:30 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -35,7 +35,22 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="2F3085A0-3BB2-1199-A1D6-CA4A498FC257" referredColumn="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+<colAssociation fkAssociation="6812870A-C9B3-309E-5892-A44F52DCF04D" referredColumn="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
+</associations>
+</Column>
+<Column name="apart_number" id="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E">
+<createdBy>Userr</createdBy>
+<createdTime>2020-12-19 14:47:30 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6812870A-C9B3-309E-5892-A44F52DCF04D" referredColumn="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
 </associations>
 </Column>
 <Column name="book_date" id="A9345977-E0A2-4C81-FB69-D660D5C0AD43">
@@ -68,7 +83,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="adults_number" id="30447903-EB52-1B1F-1601-FCF99A4D9E83">
+<Column name="adults_count" id="30447903-EB52-1B1F-1601-FCF99A4D9E83">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:05:16 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -83,7 +98,7 @@
 <ownDataTypeParameters>,2,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="children_number" id="63BCB3DB-BA07-8645-2271-178397B6AC4F">
+<Column name="children_count" id="63BCB3DB-BA07-8645-2271-178397B6AC4F">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 22:05:45 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -100,15 +115,16 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="96936151-BB77-B260-5FBB-8FA44354C45B" name="BOOKING_PK">
+<ind_PK_UK id="1F4479CF-F7AD-37CA-CE0A-0F8B7DB02715" name="BOOKING_PK">
 <createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:44:11 UTC</createdTime>
+<createdTime>2020-12-19 14:48:08 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
+<colUsage columnID="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB"/>
+<colUsage columnID="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E"/>
 <colUsage columnID="BF397D21-5B51-7C7C-414F-AF146543D57E"/>
 </indexColumnUsage>
 </ind_PK_UK>
@@ -122,14 +138,15 @@
 <colUsage columnID="B971E755-DD53-A23D-0E42-CF3F4DED0088"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="DD9B0746-4019-024A-686A-72247F441853" name="BOOKING_APARTMENT_FK">
+<ind_PK_UK id="15D82F78-79B6-1475-021E-D71175306ABB" name="BOOKING_APARTMENT_FK">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-01 18:23:44 UTC</createdTime>
+<createdTime>2020-12-19 14:47:30 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="E8FDA8DB-CC55-FAA5-4495-B173B9E24CB2"/>
+<colUsage columnID="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB"/>
+<colUsage columnID="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

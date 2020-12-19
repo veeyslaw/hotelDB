@@ -8,22 +8,6 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="apart_id" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
-<createdBy>Userr</createdBy>
-<createdTime>2020-11-30 21:10:15 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>2</dataTypePrecision>
-<ownDataTypeParameters>,2,</ownDataTypeParameters>
-<autoIncrementColumn>true</autoIncrementColumn>
-<identityColumn>true</identityColumn>
-<autoIncrementMaxValue>99</autoIncrementMaxValue>
-<autoIncrementCycle>false</autoIncrementCycle>
-<autoIncrementSequenceName>APART_APART_ID_SEQ</autoIncrementSequenceName>
-<autoIncrementTriggerName>APART_APART_ID_TRG</autoIncrementTriggerName>
-</Column>
 <Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
@@ -39,7 +23,20 @@
 <colAssociation fkAssociation="E7598769-EBF5-31FB-CE32-70C8D281BE24" referredColumn="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
 </associations>
 </Column>
-<Column name="room_number" id="3BC68BA6-55FE-E558-E15E-99AE0622F14D">
+<Column name="apart_number" id="71E2C989-275F-AE95-7B45-4DF8B39975F6">
+<createdBy>Userr</createdBy>
+<createdTime>2020-11-30 21:10:15 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<autoIncrementMaxValue>99</autoIncrementMaxValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementGenerateTrigger>false</autoIncrementGenerateTrigger>
+</Column>
+<Column name="room_count" id="3BC68BA6-55FE-E558-E15E-99AE0622F14D">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
@@ -91,6 +88,7 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
+<colUsage columnID="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
 <colUsage columnID="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
 </indexColumnUsage>
 </ind_PK_UK>
