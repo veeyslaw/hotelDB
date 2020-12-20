@@ -1,4 +1,5 @@
 import sys
+import cx_Oracle
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 

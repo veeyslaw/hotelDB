@@ -1,0 +1,4 @@
+PyQt5 installed with ...
+cx_Oracle (pip install cx_Oracle)
+
+standard sys
