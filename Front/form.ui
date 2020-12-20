@@ -110,7 +110,17 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QDateEdit" name="check_in_date_edit"/>
+         <widget class="QDateEdit" name="check_in_date_edit">
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="displayFormat">
+           <string>dd-MMM-yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="8" column="0">
          <widget class="Line" name="line_7">
@@ -314,7 +324,17 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QDateEdit" name="check_out_date_edit"/>
+         <widget class="QDateEdit" name="check_out_date_edit">
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="displayFormat">
+           <string>dd-MMM-yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="13" column="2">
          <widget class="Line" name="line_12">

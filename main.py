@@ -21,13 +21,7 @@ class MainWindow(QMainWindow):
         loadUi("Front/form.ui", self)
 
         self.connect_buttons()
-        '''
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
-        with self.db_connection.cursor() as cursor:
-            cursor.execute('SELECT * FROM GUEST')
-            for row in cursor:
-                print(row)
-        '''
 
     def connect_buttons(self):
         self.book_button.clicked.connect(self.go_to_book_page)
@@ -43,12 +37,17 @@ class MainWindow(QMainWindow):
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
 
     def set_city_options(self):
-        # TODO querry db for cities. add them to combo
-        pass
+        self.city_combo_box.clear()
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM CITY')
+            for row in cursor:
+                self.city_combo_box.addItem(row[1])
 
     def set_check_dates(self):
-        # TODO set checks to todays dates by query
-        pass
+        with self.db_connection.cursor() as cursor:
+            sysdate = cursor.execute('SELECT SYSDATE FROM DUAL').fetchone()[0].date()
+        self.check_in_date_edit.setDate(sysdate)
+        self.check_out_date_edit.setDate(sysdate)
 
     def reset_options(self):
         self.rooms_combo_box.setCurrentIndex(0)
@@ -192,7 +191,8 @@ class MainWindow(QMainWindow):
         self.clear_search_pages()
 
     def clean_up(self):
-        print('closing connection')
+        # TODO remove print before final
+        print('### CLOSING CONNECTION ###')
         self.db_connection.close()
 
 if __name__ == "__main__":
@@ -201,5 +201,7 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
 
-    app.exec_()
-    window.clean_up()
+    try:
+        app.exec_()
+    finally:
+        window.clean_up()
