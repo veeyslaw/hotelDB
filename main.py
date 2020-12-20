@@ -21,6 +21,13 @@ class MainWindow(QMainWindow):
         loadUi("Front/form.ui", self)
 
         self.connect_buttons()
+        '''
+        self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM GUEST')
+            for row in cursor:
+                print(row)
+        '''
 
     def connect_buttons(self):
         self.book_button.clicked.connect(self.go_to_book_page)
@@ -184,6 +191,10 @@ class MainWindow(QMainWindow):
         # TODO add items to list
         self.clear_search_pages()
 
+    def clean_up(self):
+        print('closing connection')
+        self.db_connection.close()
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
@@ -191,3 +202,4 @@ if __name__ == "__main__":
     window.show()
 
     app.exec_()
+    window.clean_up()
