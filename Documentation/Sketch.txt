@@ -1,0 +1,6 @@
+PyQt5 installed with ...
+cx_Oracle (pip install cx_Oracle)
+
+standard sys
+
+restaurant, minibar,. .. mean different things in db and ui

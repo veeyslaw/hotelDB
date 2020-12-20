@@ -1,6 +1,7 @@
 import sys
+import datetime
 import cx_Oracle
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QDialogButtonBox, QHBoxLayout
 from PyQt5.uic import loadUi
 
 class MainWindow(QMainWindow):
@@ -20,10 +21,13 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         loadUi("Front/form.ui", self)
 
-        self.connect_buttons()
+        self.connect_ui()
+        self.error_dialog = QDialog(self)
+        self.configure_dialogs()
+
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
 
-    def connect_buttons(self):
+    def connect_ui(self):
         self.book_button.clicked.connect(self.go_to_book_page)
         self.admin_button.clicked.connect(self.go_to_admin_page)
         self.search_button.clicked.connect(self.search_bookings)
@@ -35,19 +39,34 @@ class MainWindow(QMainWindow):
         self.quit_admin_button.clicked.connect(self.close)
         self.search_button_2.clicked.connect(self.search_admin)
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
+        self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
 
-    def set_city_options(self):
+    def configure_dialogs(self):
+        self.error_dialog.resize(300, 300)
+        self.error_dialog.setWindowTitle('Error')
+        button_box = QDialogButtonBox(self.error_dialog)
+        horizontal_layout = QHBoxLayout(self.error_dialog)
+        button_box.setStandardButtons(QDialogButtonBox.Ok)
+        button_box.setObjectName("button_box")
+        horizontal_layout.addWidget(button_box)
+        button_box.accepted.connect(self.error_dialog.accept)
+        # self.error_dialog.exec()
+
+    def prepare_city_options(self):
         self.city_combo_box.clear()
+        self.city_combo_box.addItem('Any city')
         with self.db_connection.cursor() as cursor:
             cursor.execute('SELECT * FROM CITY')
             for row in cursor:
                 self.city_combo_box.addItem(row[1])
 
-    def set_check_dates(self):
+    def prepare_date_edits(self):
         with self.db_connection.cursor() as cursor:
             sysdate = cursor.execute('SELECT SYSDATE FROM DUAL').fetchone()[0].date()
-        self.check_in_date_edit.setDate(sysdate)
-        self.check_out_date_edit.setDate(sysdate)
+        self.check_in_date_edit.setMinimumDate(sysdate)
+        self.check_in_date_edit.setMaximumDate(sysdate + datetime.timedelta(days=366))
+        self.check_out_date_edit.setMinimumDate(sysdate + datetime.timedelta(days=1))
+        self.check_out_date_edit.setMaximumDate(sysdate + datetime.timedelta(days=367))
 
     def reset_options(self):
         self.rooms_combo_box.setCurrentIndex(0)
@@ -63,9 +82,12 @@ class MainWindow(QMainWindow):
         self.ac_check_box.setChecked(False)
         self.double_bed_check_box.setChecked(False)
 
+    def on_check_in_date_change(self, date):
+        self.check_out_date_edit.setMinimumDate(date.addDays(1))
+
     def go_to_book_page(self):
-        self.set_city_options()
-        self.set_check_dates()
+        self.prepare_city_options()
+        self.prepare_date_edits()
         self.reset_options()
         self.main_stacked_widget.setCurrentIndex(MainWindow.BOOK_PAGE)
 
@@ -73,38 +95,91 @@ class MainWindow(QMainWindow):
         self.main_stacked_widget.setCurrentIndex(MainWindow.ADMIN_PAGE)
 
     def search_bookings(self):
-        city = str(self.city_combo_box.currentText())
-        check_in = self.check_in_date_edit.date()
-        check_out = self.check_out_date_edit.date()
-        # TODO get current date?
+        if self.city_combo_box.currentIndex() == 0:
+            city = None
+        else:
+            city = str(self.city_combo_box.currentText())
+        check_in = str(self.check_in_date_edit.date().toPyDate())
+        check_out = str(self.check_out_date_edit.date().toPyDate())
         try:
             room_count = int(self.rooms_combo_box.currentText())
         except ValueError:
-            room_count = 0
+            room_count = None
         adults_count = self.adults_spin_box.value()
         children_count = self.children_spin_box.value()
         try:
             rating = int(self.rating_combo_box.currentText())
         except ValueError:
-            rating = 0
-        restaurant = self.restaurant_check_box.isChecked()
-        free_meals = self.free_meals_check_box.isChecked()
-        minibar = self.minibar_check_box.isChecked()
-        pool = self.pool_check_box.isChecked()
-        free_internet = self.free_internet_check_box.isChecked()
-        tv = self.tv_check_box.isChecked()
-        ac = self.ac_check_box.isChecked()
-        double_bed = self.double_bed_check_box.isChecked()
-        # TODO querry db
-        # TODO go to only if good querry
+            rating = None
+        restaurant = int(self.restaurant_check_box.isChecked())
+        free_meals = int(self.free_meals_check_box.isChecked())
+        minibar = int(self.minibar_check_box.isChecked())
+        pool = int(self.pool_check_box.isChecked())
+        free_internet = int(self.free_internet_check_box.isChecked())
+        tv = int(self.tv_check_box.isChecked())
+        ac = int(self.ac_check_box.isChecked())
+        double_bed = int(self.double_bed_check_box.isChecked())
+
+        query = f"""
+                SELECT
+                    city_name,
+                    hotel_name,
+                    text_desc, rating, restaurant, free_meals, pool, free_internet,
+                    a.apart_number, room_count, price_per_night_euro,
+                    air_conditioner, minibar, tv, double_bed
+                FROM
+                    CITY c,
+                    HOTEL h,
+                    HOTEL_DESCRIPTION hd,
+                    (SELECT hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro
+                     FROM APARTMENT inner_a
+                     WHERE (SELECT COUNT(*)
+                            FROM BOOKING b
+                            WHERE b.hotel_id = inner_a.hotel_id
+                                AND b.apart_number = inner_a.apart_number
+                                AND b.check_out > TO_DATE('{check_in}', 'YYYY/MM/DD')
+                                AND b.check_in <= TO_DATE('{check_out}', 'YYYY/MM/DD')) = 0)
+                    a,
+                    APARTMENT_DESCRIPTION ad
+                WHERE
+                    c.city_id = h.city_id
+                    AND h.hotel_id = hd.hotel_id
+                    AND a.hotel_id = h.hotel_id
+                    AND ad.hotel_id = a.hotel_id
+                    AND ad.apart_number = a.apart_number
+                    AND restaurant >= {restaurant}
+                    AND free_meals >= {free_meals}
+                    AND pool >= {pool}
+                    AND free_internet >= {free_internet}
+                    AND air_conditioner >= {ac}
+                    AND minibar >= {minibar}
+                    AND tv >= {tv}
+                    AND double_bed >= {double_bed}
+                    AND apart_capacity >= {adults_count + children_count}
+                    {f"AND city_name = '{city}'" if city is not None else ''}
+                    {f'AND rating >= {rating}' if rating is not None else ''}
+                    {f'AND room_count >= {room_count}' if room_count is not None else ''}
+                """
+
+        print(check_in)
+        print(check_out)
+        print(query)
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(query)
+            for row in cursor:
+                print(row)
+        # TODO query db
+        # TODO go to only if good query
         offers = None
         self.go_to_offers_page(offers)
 
     def go_to_offers_page(self, offers):
         self.offers_list.clear()
         # TODO add offers to list
+        # TODO update period
         self.main_stacked_widget.setCurrentIndex(MainWindow.OFFERS_PAGE)
-
+##############################################################################################################################
     def book(self):
         # TODO transaction offer
         self.first_name_line_edit.clear()
@@ -123,21 +198,21 @@ class MainWindow(QMainWindow):
 
     def search_city(self):
         city_name = str(self.city_name_line_edit.text())
-        # TODO querry bd for them
+        # TODO query bd for them
         items = None
         return items
 
     def search_hotel(self):
         hotel_name = str(self.hotel_name_line_edit.text())
         city_name = str(self.city_name_line_edit_2.text())
-        # TODO querry bd for them
+        # TODO query bd for them
         items = None
         return items
 
     def search_apartment(self):
         hotel_name = str(self.hotel_name_line_edit_2.text())
         apartment_number = self.apartment_number_spin_box.value()
-        # TODO querry bd for them
+        # TODO query bd for them
         items = None
         return items
 
@@ -146,7 +221,7 @@ class MainWindow(QMainWindow):
         apartment_number = self.apartment_number_spin_box_2.value()
         passport_number = str(self.passport_line_edit_2.text())
         check_in = self.check_in_date_edit_2.date()
-        # TODO querry bd for them
+        # TODO query bd for them
         items = None
         return items
 
@@ -155,7 +230,7 @@ class MainWindow(QMainWindow):
         last_name = str(self.last_name_line_edit_2.text())
         passport_number = str(self.passport_line_edit_3.text())
         email = str(self.email_line_edit_2.text())
-        # TODO querry bd for them
+        # TODO query bd for them
         items = None
         return items
 

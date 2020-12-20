@@ -525,6 +525,16 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="period_label">
+          <property name="text">
+           <string>Offers for dd-mm-yyyy - dd-mm-yyyy</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="check_out_page">
