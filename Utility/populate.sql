@@ -26,8 +26,8 @@ VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotel pentru studenti vis-a-vis de Universi
 
 INSERT INTO HOTEL (hotel_name, city_id, contact_number, manager_name)
 VALUES ('City Hotel', (SELECT city_id FROM CITY WHERE city_name = 'Bucuresti'), '+40795348232', 'Zaharia Banana');
-INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc, rating, restaurant, free_meals, pool, free_internet)
-VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotel prietenos cu mediul.', 2, 0, 0, 0, 0);
+INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc, restaurant, free_meals, pool, free_internet)
+VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotel prietenos cu mediul.', 0, 0, 0, 0);
 
 
 INSERT INTO HOTEL (hotel_name, city_id, contact_number, manager_name)

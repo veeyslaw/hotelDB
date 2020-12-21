@@ -42,7 +42,6 @@
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <constraintName>APART_DESC_AIR_CONDITIONER_CK</constraintName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -59,7 +58,6 @@
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <constraintName>APART_DESC_MINIBAR_CK</constraintName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -76,7 +74,6 @@
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <constraintName>APART_DESC_TV_CK</constraintName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -93,7 +90,6 @@
 <createdTime>2020-12-02 11:05:20 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <constraintName>APART_DESC_DOUBLE_BED_CK</constraintName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
