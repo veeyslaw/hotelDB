@@ -1,7 +1,8 @@
 import sys
 import datetime
 import cx_Oracle
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QDialogButtonBox, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QDialogButtonBox, QVBoxLayout, QLabel
+from PyQt5 import QtCore
 from PyQt5.uic import loadUi
 
 class MainWindow(QMainWindow):
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         self.connect_ui()
         self.error_dialog = QDialog(self)
         self.configure_dialogs()
+        self.error('yey')
 
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
 
@@ -44,13 +46,22 @@ class MainWindow(QMainWindow):
     def configure_dialogs(self):
         self.error_dialog.resize(300, 300)
         self.error_dialog.setWindowTitle('Error')
+        vertical_layout = QVBoxLayout(self.error_dialog)
+
+        self.error_label = QLabel(self.error_dialog)
+        self.error_label.setObjectName('error_label')
+        self.error_label.setAlignment(QtCore.Qt.AlignCenter)
+        vertical_layout.addWidget(self.error_label)
+
         button_box = QDialogButtonBox(self.error_dialog)
-        horizontal_layout = QHBoxLayout(self.error_dialog)
         button_box.setStandardButtons(QDialogButtonBox.Ok)
-        button_box.setObjectName("button_box")
-        horizontal_layout.addWidget(button_box)
+        button_box.setObjectName('button_box')
         button_box.accepted.connect(self.error_dialog.accept)
-        # self.error_dialog.exec()
+        vertical_layout.addWidget(button_box)
+
+    def error(self, message):
+        self.error_label.setText(message)
+        self.error_dialog.exec()
 
     def prepare_city_options(self):
         self.city_combo_box.clear()
@@ -161,18 +172,13 @@ class MainWindow(QMainWindow):
                     {f'AND room_count >= {room_count}' if room_count is not None else ''}
                 """
 
-        print(check_in)
-        print(check_out)
-        print(query)
-
         with self.db_connection.cursor() as cursor:
             cursor.execute(query)
-            for row in cursor:
-                print(row)
-        # TODO query db
-        # TODO go to only if good query
-        offers = None
-        self.go_to_offers_page(offers)
+            offers = [row for row in cursor]
+        if offers is None:
+            self.error('No available offers. Try again.')
+        else:
+            self.go_to_offers_page(offers)
 
     def go_to_offers_page(self, offers):
         self.offers_list.clear()
