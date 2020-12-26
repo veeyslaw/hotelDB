@@ -1,3 +1,4 @@
+make hotel_name unique
 recheck all constraints
 should all options be mandatory
 refactor?

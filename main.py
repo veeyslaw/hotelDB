@@ -25,7 +25,13 @@ class MainWindow(QMainWindow):
         self.connect_ui()
         self.error_dialog = QDialog(self)
         self.configure_dialogs()
-        self.error('yey')
+
+        self.check_in = datetime.date.today()
+        self.check_out = datetime.date.today()
+        self.adults_count = -1
+        self.children_count = -1
+        self.hotel_name = ''
+        self.apartment_number = -1
 
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
 
@@ -67,9 +73,9 @@ class MainWindow(QMainWindow):
         self.city_combo_box.clear()
         self.city_combo_box.addItem('Any city')
         with self.db_connection.cursor() as cursor:
-            cursor.execute('SELECT * FROM CITY')
+            cursor.execute('SELECT city_name FROM CITY')
             for row in cursor:
-                self.city_combo_box.addItem(row[1])
+                self.city_combo_box.addItem(row[0])
 
     def prepare_date_edits(self):
         with self.db_connection.cursor() as cursor:
@@ -110,14 +116,14 @@ class MainWindow(QMainWindow):
             city = None
         else:
             city = str(self.city_combo_box.currentText())
-        check_in = str(self.check_in_date_edit.date().toPyDate())
-        check_out = str(self.check_out_date_edit.date().toPyDate())
+        self.check_in = str(self.check_in_date_edit.date().toPyDate())
+        self.check_out = str(self.check_out_date_edit.date().toPyDate())
         try:
             room_count = int(self.rooms_combo_box.currentText())
         except ValueError:
             room_count = None
-        adults_count = self.adults_spin_box.value()
-        children_count = self.children_spin_box.value()
+        self.adults_count = self.adults_spin_box.value()
+        self.children_count = self.children_spin_box.value()
         try:
             rating = int(self.rating_combo_box.currentText())
         except ValueError:
@@ -148,8 +154,8 @@ class MainWindow(QMainWindow):
                             FROM BOOKING b
                             WHERE b.hotel_id = inner_a.hotel_id
                                 AND b.apart_number = inner_a.apart_number
-                                AND b.check_out > TO_DATE('{check_in}', 'YYYY/MM/DD')
-                                AND b.check_in <= TO_DATE('{check_out}', 'YYYY/MM/DD')) = 0)
+                                AND b.check_out > TO_DATE('{self.check_in}', 'YYYY-MM-DD')
+                                AND b.check_in < TO_DATE('{self.check_out}', 'YYYY-MM-DD')) = 0)
                     a,
                     APARTMENT_DESCRIPTION ad
                 WHERE
@@ -166,7 +172,7 @@ class MainWindow(QMainWindow):
                     AND minibar >= {minibar}
                     AND tv >= {tv}
                     AND double_bed >= {double_bed}
-                    AND apart_capacity >= {adults_count + children_count}
+                    AND apart_capacity >= {self.adults_count + self.children_count}
                     {f"AND city_name = '{city}'" if city is not None else ''}
                     {f'AND rating >= {rating}' if rating is not None else ''}
                     {f'AND room_count >= {room_count}' if room_count is not None else ''}
@@ -180,14 +186,48 @@ class MainWindow(QMainWindow):
         else:
             self.go_to_offers_page(offers)
 
+    def add_offer(self, offer):
+        hotel_comodities = offer[4] + offer[5] + offer[6] + offer[7]
+        apartment_comodities = offer[11] + offer[12] + offer[13] + offer[14]
+        item = f"{''.ljust(len(offer[2]), '-')}\n" +\
+            f"{offer[0]}, {offer[1]}{f', {offer[3]} stars' if offer[3] is not None else ''}\n" +\
+            f"{offer[2]}" +\
+            f"{f'{chr(10)}' if hotel_comodities > 0 else ''}" +\
+            f"{f'Hotel restaurant {chr(10003)} ' if offer[4] == 1 else ''}" +\
+            f"{f'Free meals {chr(10003)} ' if offer[5] == 1 else ''}" +\
+            f"{f'Private pool {chr(10003)} ' if offer[6] == 1 else ''}" +\
+            f"{f'Free internet {chr(10003)} ' if offer[7] == 1 else ''}" +\
+            f"{f'{chr(10)}' if apartment_comodities > 0 else ''}" +\
+            f"{f'AC {chr(10003)} ' if offer[11] == 1 else ''}" +\
+            f"{f'Minibar {chr(10003)} ' if offer[12] == 1 else ''}" +\
+            f"{f'TV {chr(10003)} ' if offer[13] == 1 else ''}" +\
+            f"{f'Double bed {chr(10003)} ' if offer[14] == 1 else ''}" +\
+            f"\nNo. {offer[8]}, {offer[9]} rooms ----- only {offer[10]} {chr(8364)} per night" +\
+            f"\n{''.ljust(len(offer[2]), '_')}"
+
+        self.offers_list.addItem(item)
+
     def go_to_offers_page(self, offers):
+        self.period_label.setText(f'Offers for {self.check_in} - {self.check_out}')
         self.offers_list.clear()
-        # TODO add offers to list
-        # TODO update period
+
+        for offer in offers:
+            self.add_offer(offer)
+
+        self.offers_list.itemClicked.connect(self.book)
         self.main_stacked_widget.setCurrentIndex(MainWindow.OFFERS_PAGE)
-##############################################################################################################################
-    def book(self):
-        # TODO transaction offer
+
+    def book(self, item):
+        text = item.text()
+
+        hotel_name_start = text.find(',') + 2
+        hotel_name_stop = text.find(',', hotel_name_start)
+        self.hotel_name = text[hotel_name_start: hotel_name_stop]
+
+        apartment_number_start = text.rfind('No.') + 4
+        apartment_number_stop = text.find(',', apartment_number_start)
+        self.apartment_number = int(text[apartment_number_start: apartment_number_stop])
+
         self.first_name_line_edit.clear()
         self.last_name_line_edit.clear()
         self.passport_line_edit.clear()
@@ -204,31 +244,79 @@ class MainWindow(QMainWindow):
 
     def search_city(self):
         city_name = str(self.city_name_line_edit.text())
-        # TODO query bd for them
-        items = None
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"SELECT city_name FROM CITY WHERE LOWER(city_name) LIKE LOWER('%{city_name}%')")
+            items = [row[0] for row in cursor]
+
         return items
 
     def search_hotel(self):
         hotel_name = str(self.hotel_name_line_edit.text())
         city_name = str(self.city_name_line_edit_2.text())
-        # TODO query bd for them
-        items = None
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute("SELECT hotel_name, city_name, contact_number, manager_name, " +\
+                                    "text_desc, rating, restaurant, free_meals, pool, free_internet " +\
+                            "FROM HOTEL h, CITY c, HOTEL_DESCRIPTION hd " +\
+                            f"WHERE LOWER(hotel_name) LIKE LOWER('%{hotel_name}%') " +\
+                            f"AND LOWER(city_name) LIKE LOWER('%{city_name}%') " +\
+                            "AND h.city_id = c.city_id " +\
+                            "AND hd.hotel_id = h.hotel_id")
+            items = [f'{row[1]}\n{row[0]}\nContact: {row[2]}{f"{chr(10)}Manager: {row[3]}" if row[3] is not None else ""}\n' +\
+                    f'{row[4]}{f"{chr(10)}Rating: {row[5]}" if row[5] is not None else ""}\n' +\
+                    f"{f'Hotel restaurant {chr(10003)} ' if row[6] == 1 else ''}" +\
+                    f"{f'Free meals {chr(10003)} ' if row[7] == 1 else ''}" +\
+                    f"{f'Private pool {chr(10003)} ' if row[8] == 1 else ''}" +\
+                    f"{f'Free internet {chr(10003)} ' if row[9] == 1 else ''}"
+                    for row in cursor]
+
         return items
 
     def search_apartment(self):
         hotel_name = str(self.hotel_name_line_edit_2.text())
         apartment_number = self.apartment_number_spin_box.value()
-        # TODO query bd for them
-        items = None
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute("SELECT hotel_name, a.apart_number, room_count, apart_capacity, price_per_night_euro, " +\
+                                    "air_conditioner, minibar, tv, double_bed " +\
+                            "FROM HOTEL h, APARTMENT a, APARTMENT_DESCRIPTION ad " +\
+                            f"WHERE LOWER(hotel_name) LIKE LOWER('%{hotel_name}%') " +\
+                            f"{f'AND a.apart_number = {apartment_number} ' if apartment_number > 0 else ''}" +\
+                            "AND h.hotel_id = a.hotel_id " +\
+                            "AND ad.hotel_id = a.hotel_id " +\
+                            "AND ad.apart_number = a.apart_number")
+            items = [f'{row[0]}, Apart. No.{row[1]}\n{row[2]} rooms, capacity - {row[3]}, {row[4]} {chr(8364)} per night\n' +\
+                    f"{f'AC {chr(10003)} ' if row[5] == 1 else ''}" +\
+                    f"{f'Minibar {chr(10003)} ' if row[6] == 1 else ''}" +\
+                    f"{f'TV {chr(10003)} ' if row[7] == 1 else ''}" +\
+                    f"{f'Double bed {chr(10003)} ' if row[8] == 1 else ''}"
+                    for row in cursor]
+
         return items
 
     def search_booking(self):
         hotel_name = str(self.hotel_name_line_edit_3.text())
         apartment_number = self.apartment_number_spin_box_2.value()
         passport_number = str(self.passport_line_edit_2.text())
-        check_in = self.check_in_date_edit_2.date()
-        # TODO query bd for them
-        items = None
+        check_in = str(self.check_in_date_edit_2.date().toPyDate())
+        check_in_line = f"AND check_in LIKE TO_DATE('{check_in}', 'YYYY-MM-DD') " if check_in != "2000-01-01" else ''
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute("SELECT passport_number, hotel_name, apart_number, book_date, " +\
+                                    "check_in, check_out, adults_count, children_count " +\
+                            "FROM BOOKING b, GUEST g, HOTEL h " +\
+                            f"WHERE LOWER(hotel_name) LIKE LOWER('%{hotel_name}%') " +\
+                            f"{f'AND apart_number = {apartment_number} ' if apartment_number > 0 else ''}" +\
+                            f"AND LOWER(passport_number) LIKE LOWER('%{passport_number}%') " +\
+                            check_in_line +\
+                            "AND h.hotel_id = b.hotel_id " +\
+                            "AND b.guest_id = g.guest_id ")
+            items = [f'{row[1]}, Apart. No.{row[2]}, Guest passport number: {row[0]}\n' +\
+                    f'Booked on: {str(row[3].date())}, Check-in: {str(row[4].date())}, Check-out: {str(row[5].date())}\n' +\
+                    f'{row[6]} adults, {row[7]} children'
+                    for row in cursor]
+
         return items
 
     def search_guest(self):
@@ -236,8 +324,18 @@ class MainWindow(QMainWindow):
         last_name = str(self.last_name_line_edit_2.text())
         passport_number = str(self.passport_line_edit_3.text())
         email = str(self.email_line_edit_2.text())
-        # TODO query bd for them
-        items = None
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute("SELECT first_name, last_name, passport_number, email, phone_number " +\
+                            "FROM GUEST " +\
+                            f"WHERE LOWER(first_name) LIKE LOWER('%{first_name}%') " +\
+                            f"AND LOWER(last_name) LIKE LOWER('%{last_name}%') " +\
+                            f"AND LOWER(passport_number) LIKE LOWER('%{passport_number}%') " +\
+                            f"AND LOWER(email) LIKE LOWER('%{email}%')")
+            items = [f'{row[0]} {row[1]}\nPassport: {row[2]}\nEmail: {row[3]}' +\
+                    f'{f"{chr(10)}Phone number: {row[4]}" if row[4] is not None else ""}'
+                    for row in cursor]
+
         return items
 
     def clear_search_pages(self):
@@ -249,7 +347,7 @@ class MainWindow(QMainWindow):
         self.hotel_name_line_edit_3.clear()
         self.apartment_number_spin_box_2.setValue(0)
         self.passport_line_edit_2.clear()
-        # TODO set check in date to sysdate
+        self.check_in_date_edit_2.setDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
         self.first_name_line_edit_2.clear()
         self.last_name_line_edit_2.clear()
         self.passport_line_edit_3.clear()
@@ -268,7 +366,13 @@ class MainWindow(QMainWindow):
         elif index == MainWindow.GUEST_PAGE:
             items = self.search_guest()
         self.search_list.clear()
-        # TODO add items to list
+
+        if items is not None:
+            for item in items:
+                self.search_list.addItem(item)
+        else:
+            self.error('No matches')
+
         self.clear_search_pages()
 
     def clean_up(self):

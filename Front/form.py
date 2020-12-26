@@ -281,6 +281,8 @@ class Ui_main_window(object):
         self.gridLayout_7.setObjectName("gridLayout_7")
         self.offers_list = QtWidgets.QListWidget(self.offers_page)
         self.offers_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.offers_list.setWordWrap(False)
+        self.offers_list.setSelectionRectVisible(True)
         self.offers_list.setObjectName("offers_list")
         self.gridLayout_7.addWidget(self.offers_list, 0, 0, 1, 1)
         self.back_button_2 = QtWidgets.QPushButton(self.offers_page)
