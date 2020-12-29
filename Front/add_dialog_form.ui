@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QStackedWidget" name="stackedWidget">
+    <widget class="QStackedWidget" name="add_stacked_widget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -112,6 +112,11 @@
        </item>
        <item row="3" column="4">
         <widget class="QComboBox" name="rating_combo_box">
+         <item>
+          <property name="text">
+           <string>N/A</string>
+          </property>
+         </item>
          <item>
           <property name="text">
            <string>1</string>
@@ -223,7 +228,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Rating *</string>
+          <string>Rating</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

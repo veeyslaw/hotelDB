@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
 
         self.error_dialog = QDialog(self)
         self.add_dialog = QDialog(self)
-        self.update_delete_dialog = QDialog(self)
+        # self.update_delete_dialog = Dialog(self)
         self.configure_dialogs()
         self.connect_ui()
         self.reset_book_cache()
@@ -44,6 +44,8 @@ class MainWindow(QMainWindow):
         self.search_button_2.clicked.connect(self.search_admin)
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
+        self.search_list.itemDoubleClicked.connect(self.administer_item)
+        self.add_dialog.add_button.connect(self.add_entry)
 
     def configure_error_dialog(self):
         self.error_dialog.resize(300, 300)
@@ -475,6 +477,80 @@ class MainWindow(QMainWindow):
             self.search_list.addItem(item)
 
         self.clear_search_pages()
+
+    def clear_add_dialog(self):
+        self.add_dialog.city_name_line_edit.clear()
+        self.add_dialog.hotel_name_line_edit.clear()
+        self.add_dialog.city_name_line_edit_2.clear()
+        self.add_dialog.contact_number_line_edit.clear()
+        self.add_dialog.manager_name_line_edit.clear()
+        self.add_dialog.text_desc_text_edit.clear()
+        self.add_dialog.rating_combo_box.setCurrentIndex(0)
+        self.add_dialog.restaurant_check_box.setChecked(False)
+        self.add_dialog.free_meals_check_box.setChecked(False)
+        self.add_dialog.pool_check_box.setChecked(False)
+        self.add_dialog.free_internet_check_box.setChecked(False)
+        self.add_dialog.hotel_name_line_edit_2.clear()
+        self.add_dialog.apart_number_spin_box.setValue(1)
+        self.add_dialog.room_count_spin_box.setValue(1)
+        self.add_dialog.apart_capacity_spin_box.setValue(1)
+        self.add_dialog.price_per_night_spin_box.setValue(0)
+        self.add_dialog.ac_check_box.setChecked(False)
+        self.add_dialog.minibar_check_box.setChecked(False)
+        self.add_dialog.tv_check_box.setChecked(False)
+        self.add_dialog.double_bed_check_box.setChecked(False)
+
+    def administer_item(self, item):
+        index = self.search_combo_box.currentIndex()
+        if (index == MainWindow.CITY_PAGE \
+            or index == MainWindow.HOTEL_PAGE \
+            or index == MainWindow.APARTMENT_PAGE) \
+            and item.listWidget().currentRow() == 0:
+
+            self.clear_add_dialog()
+            self.add_dialog.add_stacked_widget.setCurrentIndex(index)
+
+            text = item.text()
+            if index == MainWindow.CITY_PAGE:
+                name_start = text.find('Name: ') + 6
+                name_end = text.find('\n', name_start)
+                self.add_dialog.city_name_line_edit.setText(text[name_start: name_end])
+
+            if index == MainWindow.HOTEL_PAGE:
+                hotel_name_start = text.find('Name: ')
+                if hotel_name_start >= 0:
+                    hotel_name_start += 6
+                    hotel_name_end = text.find('\n', hotel_name_start)
+                    self.add_dialog.hotel_name_line_edit.setText(text[hotel_name_start: hotel_name_end])
+                city_name_start = text.find('City: ')
+                if city_name_start >= 0:
+                    city_name_start += 6
+                    city_name_end = text.find('\n', city_name_start)
+                    self.add_dialog.city_name_line_edit_2.setText(text[city_name_start: city_name_end])
+
+            if index == MainWindow.APARTMENT_PAGE:
+                hotel_name_start = text.find('Hotel: ')
+                if hotel_name_start >= 0:
+                    hotel_name_start += 7
+                    hotel_name_end = text.find('\n', hotel_name_start)
+                    self.add_dialog.hotel_name_line_edit_2.setText(text[hotel_name_start: hotel_name_end])
+                apart_number_start = text.find('Number: ')
+                if apart_number_start >= 0:
+                    apart_number_start += 8
+                    apart_number_end = text.find('\n', apart_number_start)
+                    apart_number = int(text[apart_number_start: apart_number_end])
+                    self.add_dialog.apart_number_spin_box.setValue(apart_number)
+
+            self.add_dialog.exec()
+
+    def add_entry(self):
+        index = self.add_dialog.add_stacked_widget.currentIndex()
+        if index == MainWindow.CITY_PAGE:
+            pass
+        if index == MainWindow.HOTEL_PAGE:
+            pass
+        if index == MainWindow.APARTMENT_PAGE:
+            pass
 
     def clean_up(self):
         self.db_connection.close()
