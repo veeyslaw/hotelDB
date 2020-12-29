@@ -25,24 +25,18 @@ class MainWindow(QMainWindow):
         self.connect_ui()
         self.error_dialog = QDialog(self)
         self.configure_dialogs()
-
-        self.check_in = datetime.date.today()
-        self.check_out = datetime.date.today()
-        self.adults_count = -1
-        self.children_count = -1
-        self.hotel_name = ''
-        self.apartment_number = -1
+        self.reset_book_cache()
 
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
 
     def connect_ui(self):
-        self.book_button.clicked.connect(self.go_to_book_page)
+        self.book_button.clicked.connect(self.go_to_fresh_book_page)
         self.admin_button.clicked.connect(self.go_to_admin_page)
         self.search_button.clicked.connect(self.search_bookings)
         self.back_button_2.clicked.connect(self.go_to_book_page)
-        self.back_button.clicked.connect(self.go_to_offers_page)
+        self.back_button.clicked.connect(self.go_to_book_page)
         self.confirm_button.clicked.connect(self.confirm_booking)
-        self.another_booking_button.clicked.connect(self.go_to_book_page)
+        self.another_booking_button.clicked.connect(self.go_to_fresh_book_page)
         self.quit_button.clicked.connect(self.close)
         self.quit_admin_button.clicked.connect(self.close)
         self.search_button_2.clicked.connect(self.search_admin)
@@ -64,6 +58,14 @@ class MainWindow(QMainWindow):
         button_box.setObjectName('button_box')
         button_box.accepted.connect(self.error_dialog.accept)
         vertical_layout.addWidget(button_box)
+
+    def reset_book_cache(self):
+        self.check_in = '2000-01-01'
+        self.check_out = '2000-01-01'
+        self.adults_count = -1
+        self.children_count = -1
+        self.hotel_name = ''
+        self.apartment_number = -1
 
     def error(self, message):
         self.error_label.setText(message)
@@ -102,10 +104,14 @@ class MainWindow(QMainWindow):
     def on_check_in_date_change(self, date):
         self.check_out_date_edit.setMinimumDate(date.addDays(1))
 
-    def go_to_book_page(self):
+    def go_to_fresh_book_page(self):
         self.prepare_city_options()
         self.prepare_date_edits()
         self.reset_options()
+        self.reset_book_cache()
+        self.main_stacked_widget.setCurrentIndex(MainWindow.BOOK_PAGE)
+
+    def go_to_book_page(self):
         self.main_stacked_widget.setCurrentIndex(MainWindow.BOOK_PAGE)
 
     def go_to_admin_page(self):
@@ -182,7 +188,7 @@ class MainWindow(QMainWindow):
             cursor.execute(query)
             offers = [row for row in cursor]
         if offers is None:
-            self.error('No available offers. Try again.')
+            self.error('No available offers. Try a broader search.')
         else:
             self.go_to_offers_page(offers)
 
@@ -190,7 +196,7 @@ class MainWindow(QMainWindow):
         hotel_comodities = offer[4] + offer[5] + offer[6] + offer[7]
         apartment_comodities = offer[11] + offer[12] + offer[13] + offer[14]
         item = f"{''.ljust(len(offer[2]), '-')}\n" +\
-            f"{offer[0]}, {offer[1]}{f', {offer[3]} stars' if offer[3] is not None else ''}\n" +\
+            f"{offer[1]}, {offer[0]}{f', {offer[3]} stars' if offer[3] is not None else ''}\n" +\
             f"{offer[2]}" +\
             f"{f'{chr(10)}' if hotel_comodities > 0 else ''}" +\
             f"{f'Hotel restaurant {chr(10003)} ' if offer[4] == 1 else ''}" +\
@@ -220,7 +226,7 @@ class MainWindow(QMainWindow):
     def book(self, item):
         text = item.text()
 
-        hotel_name_start = text.find(',') + 2
+        hotel_name_start = text.find('\n') + 1
         hotel_name_stop = text.find(',', hotel_name_start)
         self.hotel_name = text[hotel_name_start: hotel_name_stop]
 
@@ -236,7 +242,49 @@ class MainWindow(QMainWindow):
         self.main_stacked_widget.setCurrentIndex(MainWindow.CHECK_OUT_PAGE)
 
     def confirm_booking(self):
-        # TODO complete db transaction
+        first_name = str(self.first_name_line_edit.text())
+        last_name = str(self.last_name_line_edit.text())
+        passport_number = str(self.passport_line_edit.text())
+        email = str(self.email_line_edit.text())
+        phone_number = str(self.phone_number_line_edit.text())
+        phone_number_text = f", '{phone_number}'" if len(phone_number) > 0 else ''
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"SELECT first_name, last_name, email, phone_number FROM GUEST WHERE LOWER(passport_number) = LOWER('{passport_number}')")
+            guest_data = [row for row in cursor]
+
+        if len(guest_data) == 0:
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO GUEST (first_name, last_name, passport_number, email{', phone_number' if len(phone_number) > 0 else ''}) " +\
+                                f"VALUES ('{first_name}', '{last_name}', '{passport_number}', '{email}'{phone_number_text})")
+        else:
+            if (first_name, last_name, email, phone_number) != guest_data:
+                self.error('You have another active booking, but the details provided are different. Please verify again or contact us.')
+                return
+
+        with self.db_connection.cursor() as cursor:
+            sysdate = str(cursor.execute('SELECT SYSDATE FROM DUAL').fetchone()[0].date())
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute(f"""INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
+                            VALUES ((SELECT guest_id FROM GUEST WHERE LOWER(passport_number) = LOWER('{passport_number}')),
+                                    (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{self.hotel_name}'),
+                                    {self.apartment_number},
+                                    TO_DATE('{sysdate}', 'YYYY-MM-DD'),
+                                    TO_DATE('{self.check_in}', 'YYYY-MM-DD'),
+                                    TO_DATE('{self.check_out}', 'YYYY-MM-DD'),
+                                    {self.adults_count},
+                                    {self.children_count}
+                            )""")
+
+        try:
+            with self.db_connection.cursor() as cursor:
+                cursor.execute('COMMIT')
+        except Exception as e:
+            print(type(e))
+            print(e)
+            self.error('Could not confirm booking. Try again later.')
+
         self.main_stacked_widget.setCurrentIndex(MainWindow.SUCCESSFUL_PAGE)
 
     def on_search_combo_box_change(self, index):
@@ -376,8 +424,6 @@ class MainWindow(QMainWindow):
         self.clear_search_pages()
 
     def clean_up(self):
-        # TODO remove print before final
-        print('### CLOSING CONNECTION ###')
         self.db_connection.close()
 
 if __name__ == "__main__":
