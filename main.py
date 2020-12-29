@@ -22,9 +22,11 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         loadUi("Front/form.ui", self)
 
-        self.connect_ui()
         self.error_dialog = QDialog(self)
+        self.add_dialog = QDialog(self)
+        self.update_delete_dialog = QDialog(self)
         self.configure_dialogs()
+        self.connect_ui()
         self.reset_book_cache()
 
         self.db_connection = cx_Oracle.connect('tema', 'vlad', 'localhost/xe')
@@ -43,7 +45,7 @@ class MainWindow(QMainWindow):
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
 
-    def configure_dialogs(self):
+    def configure_error_dialog(self):
         self.error_dialog.resize(300, 300)
         self.error_dialog.setWindowTitle('Error')
         vertical_layout = QVBoxLayout(self.error_dialog)
@@ -58,6 +60,11 @@ class MainWindow(QMainWindow):
         button_box.setObjectName('button_box')
         button_box.accepted.connect(self.error_dialog.accept)
         vertical_layout.addWidget(button_box)
+
+    def configure_dialogs(self):
+        self.configure_error_dialog()
+        loadUi("Front/add_dialog_form.ui", self.add_dialog)
+        # loadUi("Front/update_delete_dialog_form.ui", self.update_delete_dialog)
 
     def reset_book_cache(self):
         self.check_in = '2000-01-01'
@@ -288,7 +295,42 @@ class MainWindow(QMainWindow):
         self.main_stacked_widget.setCurrentIndex(MainWindow.SUCCESSFUL_PAGE)
 
     def on_search_combo_box_change(self, index):
+        self.search_list.clear()
         self.search_stacked_widget.setCurrentIndex(index)
+
+    def get_add_item_city(self):
+        city_name = str(self.city_name_line_edit.text())
+
+        if city_name == '':
+            return None
+        else:
+            item = f"""Add city:
+            Name: {city_name}
+            """
+            return item
+
+    def get_add_item_hotel(self):
+        hotel_name = str(self.hotel_name_line_edit.text())
+        city_name = str(self.city_name_line_edit_2.text())
+        if (city_name, hotel_name) == ('', ''):
+            return None
+        else:
+            item = "Add hotel:\n" +\
+                (f'  Name: {hotel_name}{chr(10)}' if hotel_name != '' else '') +\
+                (f'  City: {city_name}{chr(10)}' if city_name != '' else '')
+            return item
+
+    def get_add_item_apartment(self):
+        hotel_name = str(self.hotel_name_line_edit_2.text())
+        apartment_number = self.apartment_number_spin_box.value()
+
+        if (hotel_name, apartment_number) == ('', 0):
+            return None
+        else:
+            item = "Add apartment:\n" +\
+                (f'  Hotel: {hotel_name}{chr(10)}' if hotel_name != '' else '') +\
+                (f'  Number: {apartment_number}{chr(10)}' if apartment_number != 0 else '')
+            return item
 
     def search_city(self):
         city_name = str(self.city_name_line_edit.text())
@@ -403,23 +445,34 @@ class MainWindow(QMainWindow):
 
     def search_admin(self):
         index = self.search_combo_box.currentIndex()
-        if index == MainWindow.CITY_PAGE:
-            items = self.search_city()
-        elif index == MainWindow.HOTEL_PAGE:
-            items = self.search_hotel()
-        elif index == MainWindow.APARTMENT_PAGE:
-            items = self.search_apartment()
-        elif index == MainWindow.BOOKING_PAGE:
-            items = self.search_booking()
-        elif index == MainWindow.GUEST_PAGE:
-            items = self.search_guest()
-        self.search_list.clear()
 
-        if items is not None:
-            for item in items:
-                self.search_list.addItem(item)
-        else:
-            self.error('No matches')
+        if index == MainWindow.CITY_PAGE:
+            item = self.get_add_item_city()
+            items = [item] if item is not None else []
+        elif index == MainWindow.HOTEL_PAGE:
+            item = self.get_add_item_hotel()
+            items = [item] if item is not None else []
+        elif index == MainWindow.APARTMENT_PAGE:
+            item = self.get_add_item_apartment()
+            items = [item] if item is not None else []
+        elif index == MainWindow.BOOKING_PAGE\
+            or index == MainWindow.GUEST_PAGE:
+            items = []
+
+        if index == MainWindow.CITY_PAGE:
+            items += self.search_city()
+        elif index == MainWindow.HOTEL_PAGE:
+            items += self.search_hotel()
+        elif index == MainWindow.APARTMENT_PAGE:
+            items += self.search_apartment()
+        elif index == MainWindow.BOOKING_PAGE:
+            items += self.search_booking()
+        elif index == MainWindow.GUEST_PAGE:
+            items += self.search_guest()
+
+        self.search_list.clear()
+        for item in items:
+            self.search_list.addItem(item)
 
         self.clear_search_pages()
 
