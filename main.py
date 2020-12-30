@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
 
         self.error_dialog = QDialog(self)
         self.add_dialog = QDialog(self)
-        # self.update_delete_dialog = Dialog(self)
+        self.update_delete_dialog = QDialog(self)
         self.configure_dialogs()
         self.connect_ui()
         self.reset_book_cache()
@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
     def configure_dialogs(self):
         self.configure_error_dialog()
         loadUi("Front/add_dialog_form.ui", self.add_dialog)
-        # loadUi("Front/update_delete_dialog_form.ui", self.update_delete_dialog)
+        loadUi("Front/update_delete_dialog_form.ui", self.update_delete_dialog)
 
     def reset_book_cache(self):
         self.check_in = '2000-01-01'

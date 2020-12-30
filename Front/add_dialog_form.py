@@ -363,7 +363,7 @@ class Ui_add_dialog(object):
 
     def retranslateUi(self, add_dialog):
         _translate = QtCore.QCoreApplication.translate
-        add_dialog.setWindowTitle(_translate("add_dialog", "Dialog"))
+        add_dialog.setWindowTitle(_translate("add_dialog", "Add Entry"))
         self.city_name_label.setText(_translate("add_dialog", "Name *"))
         self.city_label.setText(_translate("add_dialog", "Add city"))
         self.contact_number_label.setText(_translate("add_dialog", "Contact number *"))
