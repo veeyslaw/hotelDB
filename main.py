@@ -500,6 +500,40 @@ class MainWindow(QMainWindow):
         self.add_dialog.tv_check_box.setChecked(False)
         self.add_dialog.double_bed_check_box.setChecked(False)
 
+    def clear_update_delete_dialog(self):
+        self.update_delete_dialog.current_item_label.setText('Managing: ')
+        self.update_delete_dialog.city_name_line_edit.clear()
+        self.update_delete_dialog.hotel_name_line_edit.clear()
+        self.update_delete_dialog.city_name_line_edit_2.clear()
+        self.update_delete_dialog.contact_number_line_edit.clear()
+        self.update_delete_dialog.manager_name_line_edit.clear()
+        self.update_delete_dialog.text_desc_text_edit.clear()
+        self.update_delete_dialog.rating_combo_box.setCurrentIndex(0)
+        self.update_delete_dialog.restaurant_check_box.setChecked(False)
+        self.update_delete_dialog.free_meals_check_box.setChecked(False)
+        self.update_delete_dialog.pool_check_box.setChecked(False)
+        self.update_delete_dialog.free_internet_check_box.setChecked(False)
+        self.update_delete_dialog.hotel_name_line_edit_2.clear()
+        self.update_delete_dialog.apart_number_spin_box.setValue(1)
+        self.update_delete_dialog.room_count_spin_box.setValue(1)
+        self.update_delete_dialog.apart_capacity_spin_box.setValue(1)
+        self.update_delete_dialog.price_per_night_spin_box.setValue(0)
+        self.update_delete_dialog.ac_check_box.setChecked(False)
+        self.update_delete_dialog.minibar_check_box.setChecked(False)
+        self.update_delete_dialog.tv_check_box.setChecked(False)
+        self.update_delete_dialog.double_bed_check_box.setChecked(False)
+        self.update_delete_dialog.passport_number_line_edit_3.clear()
+        self.update_delete_dialog.hotel_name_line_edit_5.clear()
+        self.update_delete_dialog.apart_number_spin_box_3.setValue(1)
+        self.update_delete_dialog.check_in_date_edit.setMinimumDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
+        self.update_delete_dialog.check_in_date_edit.setMaximumDate(datetime.datetime.strptime('9999-12-31', '%Y-%m-%d'))
+        self.update_delete_dialog.check_in_date_edit.setDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
+        self.update_delete_dialog.check_out_date_edit.setMinimumDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
+        self.update_delete_dialog.check_out_date_edit.setMaximumDate(datetime.datetime.strptime('9999-12-31', '%Y-%m-%d'))
+        self.update_delete_dialog.check_out_date_edit.setDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
+        self.update_delete_dialog.adults_count_spin_box.setValue(1)
+        self.update_delete_dialog.children_count_spin_box.setValue(0)
+
     def administer_item(self, item):
         index = self.search_combo_box.currentIndex()
         if (index == MainWindow.CITY_PAGE \
@@ -507,7 +541,6 @@ class MainWindow(QMainWindow):
             or index == MainWindow.APARTMENT_PAGE) \
             and item.listWidget().currentRow() == 0:
 
-            self.clear_add_dialog()
             self.add_dialog.add_stacked_widget.setCurrentIndex(index)
 
             text = item.text()
@@ -542,7 +575,27 @@ class MainWindow(QMainWindow):
                     self.add_dialog.apart_number_spin_box.setValue(apart_number)
 
             self.add_dialog.exec()
-            self.search_list.clear()
+            self.clear_add_dialog()
+
+        else:
+            self.update_delete_dialog.update_delete_stacked_widget.setCurrentIndex(index)
+
+            text = item.text()
+            if index == MainWindow.CITY_PAGE:
+                pass
+            if index == MainWindow.HOTEL_PAGE:
+                pass
+            if index == MainWindow.APARTMENT_PAGE:
+                pass
+            if index == MainWindow.BOOKING_PAGE:
+                pass
+            if index == MainWindow.GUEST_PAGE:
+                pass
+
+            self.update_delete_dialog.exec()
+            self.clear_update_delete_dialog()
+
+        self.search_list.clear()
 
     def add_entry(self):
         index = self.add_dialog.add_stacked_widget.currentIndex()
