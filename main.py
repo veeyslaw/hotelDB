@@ -366,7 +366,7 @@ class MainWindow(QMainWindow):
                             f"AND LOWER(city_name) LIKE LOWER('%{city_name}%') " +\
                             "AND h.city_id = c.city_id " +\
                             "AND hd.hotel_id = h.hotel_id")
-            items = [f'{row[1]}\n{row[0]}\nContact: {row[2]}{f"{chr(10)}Manager: {row[3]}" if row[3] is not None else ""}\n' +\
+            items = [f'{row[0]}\n{row[1]}\nContact: {row[2]}{f"{chr(10)}Manager: {row[3]}" if row[3] is not None else ""}\n' +\
                     f'{row[4]}{f"{chr(10)}Rating: {row[5]}" if row[5] is not None else ""}\n' +\
                     f"{f'Hotel restaurant {chr(10003)} ' if row[6] == 1 else ''}" +\
                     f"{f'Free meals {chr(10003)} ' if row[7] == 1 else ''}" +\
@@ -435,7 +435,7 @@ class MainWindow(QMainWindow):
                             f"AND LOWER(last_name) LIKE LOWER('%{last_name}%') " +\
                             f"AND LOWER(passport_number) LIKE LOWER('%{passport_number}%') " +\
                             f"AND LOWER(email) LIKE LOWER('%{email}%')")
-            items = [f'{row[0]} {row[1]}\nPassport: {row[2]}\nEmail: {row[3]}' +\
+            items = [f'First name: {row[0]}\nLast name: {row[1]}\nPassport: {row[2]}\nEmail: {row[3]}' +\
                     f'{f"{chr(10)}Phone number: {row[4]}" if row[4] is not None else ""}'
                     for row in cursor]
 
@@ -544,14 +544,19 @@ class MainWindow(QMainWindow):
         self.update_delete_dialog.check_out_date_edit.setDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
         self.update_delete_dialog.adults_count_spin_box.setValue(1)
         self.update_delete_dialog.children_count_spin_box.setValue(0)
-        self.update_delete_dialog.delete_button.setEnabled(True)
+        self.update_delete_dialog.first_name_line_edit.clear()
+        self.update_delete_dialog.last_name_line_edit.clear()
+        self.update_delete_dialog.passport_number_line_edit.clear()
+        self.update_delete_dialog.email_line_edit.clear()
+        self.update_delete_dialog.phone_number_line_edit.clear()
 
     def administer_item(self, item):
         index = self.search_combo_box.currentIndex()
         if (index == MainWindow.CITY_PAGE \
             or index == MainWindow.HOTEL_PAGE \
             or index == MainWindow.APARTMENT_PAGE) \
-            and item.listWidget().currentRow() == 0:
+            and item.listWidget().currentRow() == 0 \
+            and item.text()[0: 4] == 'Add ':
 
             self.add_dialog.add_stacked_widget.setCurrentIndex(index)
 
@@ -561,7 +566,7 @@ class MainWindow(QMainWindow):
                 name_end = text.find('\n', name_start)
                 self.add_dialog.city_name_line_edit.setText(text[name_start: name_end])
 
-            if index == MainWindow.HOTEL_PAGE:
+            elif index == MainWindow.HOTEL_PAGE:
                 hotel_name_start = text.find('Name: ')
                 if hotel_name_start >= 0:
                     hotel_name_start += 6
@@ -573,7 +578,7 @@ class MainWindow(QMainWindow):
                     city_name_end = text.find('\n', city_name_start)
                     self.add_dialog.city_name_line_edit_2.setText(text[city_name_start: city_name_end])
 
-            if index == MainWindow.APARTMENT_PAGE:
+            elif index == MainWindow.APARTMENT_PAGE:
                 hotel_name_start = text.find('Hotel: ')
                 if hotel_name_start >= 0:
                     hotel_name_start += 7
@@ -591,19 +596,167 @@ class MainWindow(QMainWindow):
 
         else:
             self.update_delete_dialog.update_delete_stacked_widget.setCurrentIndex(index)
+            item_text = item.text()
+            managing_text = str(self.update_delete_dialog.current_item_label.text())
 
-            text = item.text()
             if index == MainWindow.CITY_PAGE:
-                pass
-            if index == MainWindow.HOTEL_PAGE:
-                pass
-            if index == MainWindow.APARTMENT_PAGE:
-                pass
-            if index == MainWindow.BOOKING_PAGE:
-                pass
-            if index == MainWindow.GUEST_PAGE:
-                pass
+                city_name = item_text
+                self.update_delete_dialog.current_item_label.setText(managing_text + city_name)
+                self.update_delete_dialog.city_name_line_edit.setText(city_name)
 
+            elif index == MainWindow.HOTEL_PAGE:
+                hotel_name_start = 0
+                hotel_name_end = item_text.find('\n')
+                hotel_name = item_text[hotel_name_start: hotel_name_end]
+                city_name_start = hotel_name_end + 1
+                city_name_end = item_text.find('\n', city_name_start)
+                city_name = item_text[city_name_start: city_name_end]
+                contact_number_start =  item_text.find('Contact: ', city_name_end + 1) + 9
+                contact_number_end = item_text.find('\n', contact_number_start)
+                contact_number = item_text[contact_number_start: contact_number_end]
+                manager_name_start =  item_text.find('Manager: ', contact_number_end + 1)
+                if manager_name_start >= 0:
+                     manager_name_start += 9
+                     manager_name_end = item_text.find('\n', manager_name_start)
+                     manager_name = item_text[manager_name_start: manager_name_end]
+                else:
+                    manager_name = None
+                text_desc_start = manager_name_end + 1 if manager_name is not None else contact_number_end + 1
+                text_desc_end = item_text.find('\n', text_desc_start)
+                text_desc = item_text[text_desc_start: text_desc_end]
+                rating_start =  item_text.find('Rating: ', text_desc_end + 1)
+                if rating_start >= 0:
+                     rating_start += 8
+                     rating_end = item_text.find('\n', rating_start)
+                     rating = int(item_text[rating_start: rating_end])
+                else:
+                    rating = None
+                ticks_start = rating_end + 1 if rating is not None else text_desc_end + 1
+                restaurant = 1 if item_text.find('Hotel restaurant', ticks_start) >= 0 else 0
+                free_meals = 1 if item_text.find('Free meals', ticks_start) >= 0 else 0
+                pool = 1 if item_text.find('Private pool', ticks_start) >= 0 else 0
+                free_internet = 1 if item_text.find('Free internet', ticks_start) >= 0 else 0
+
+                self.update_delete_dialog.current_item_label.setText(managing_text + hotel_name)
+                self.update_delete_dialog.hotel_name_line_edit.setText(hotel_name)
+                self.update_delete_dialog.city_name_line_edit_2.setText(city_name)
+                self.update_delete_dialog.contact_number_line_edit.setText(contact_number)
+                if manager_name is not None:
+                    self.update_delete_dialog.manager_name_line_edit.setText(manager_name)
+                self.update_delete_dialog.text_desc_text_edit.setText(text_desc)
+                self.update_delete_dialog.rating_combo_box.setCurrentIndex(rating if rating is not None else 0)
+                self.update_delete_dialog.restaurant_check_box.setChecked(restaurant)
+                self.update_delete_dialog.free_meals_check_box.setChecked(free_meals)
+                self.update_delete_dialog.pool_check_box.setChecked(pool)
+                self.update_delete_dialog.free_internet_check_box.setChecked(free_internet)
+
+            elif index == MainWindow.APARTMENT_PAGE:
+                hotel_name_start = 0
+                first_new_line = item_text.find('\n')
+                hotel_name_end = item_text.rfind(',', 0, first_new_line)
+                hotel_name = item_text[hotel_name_start: hotel_name_end]
+                apartment_number_start = item_text.rfind('.', 0, first_new_line) + 1
+                apartment_number_end = first_new_line
+                apartment_number = int(item_text[apartment_number_start: apartment_number_end])
+                room_count_start = first_new_line + 1
+                room_count_end = item_text.find(' ', room_count_start)
+                room_count = int(item_text[room_count_start: room_count_end])
+                second_new_line = item_text.find('\n', first_new_line + 1)
+                capacity_end = item_text.rfind(',', 0, second_new_line)
+                capacity_start = item_text.rfind(' ', 0, capacity_end) + 1
+                capacity = int(item_text[capacity_start: capacity_end])
+                price_per_night_euro_start = capacity_end + 2
+                price_per_night_euro_end = item_text.find(' ', price_per_night_euro_start)
+                price_per_night_euro = float(item_text[price_per_night_euro_start: price_per_night_euro_end])
+                ac = 1 if item_text.find('AC', second_new_line) >= 0 else 0
+                minibar = 1 if item_text.find('Minibar', second_new_line) >= 0 else 0
+                tv = 1 if item_text.find('TV', second_new_line) >= 0 else 0
+                double_bed = 1 if item_text.find('Double bed', second_new_line) >= 0 else 0
+
+                self.update_delete_dialog.current_item_label.setText(managing_text + hotel_name + f', Apart. No.{apartment_number}')
+                self.update_delete_dialog.hotel_name_line_edit_2.setText(hotel_name)
+                self.update_delete_dialog.apart_number_spin_box.setValue(apartment_number)
+                self.update_delete_dialog.room_count_spin_box.setValue(room_count)
+                self.update_delete_dialog.apart_capacity_spin_box.setValue(capacity)
+                self.update_delete_dialog.price_per_night_spin_box.setValue(price_per_night_euro)
+                self.update_delete_dialog.ac_check_box.setChecked(ac)
+                self.update_delete_dialog.minibar_check_box.setChecked(minibar)
+                self.update_delete_dialog.tv_check_box.setChecked(tv)
+                self.update_delete_dialog.double_bed_check_box.setChecked(double_bed)
+
+            elif index == MainWindow.BOOKING_PAGE:
+                hotel_name_start = 0
+                first_new_line = item_text.find('\n')
+                second_comma = item_text.rfind(',', 0, first_new_line)
+                hotel_name_end = item_text.rfind(',', 0, second_comma)
+                hotel_name = item_text[hotel_name_start: hotel_name_end]
+                apartment_number_start = item_text.rfind('.', 0, second_comma) + 1
+                apartment_number_end = second_comma
+                apartment_number = int(item_text[apartment_number_start: apartment_number_end])
+                passport_number_start = item_text.rfind(':', 0, first_new_line) + 2
+                passport_number_end = first_new_line
+                passport_number = item_text[passport_number_start: passport_number_end]
+                book_date_start = item_text.find(':', first_new_line) + 2
+                book_date_end = item_text.find(',', book_date_start)
+                book_date = item_text[book_date_start: book_date_end]
+                check_in_start = item_text.find(':', book_date_end) + 2
+                check_in_end = item_text.find(',', check_in_start)
+                check_in = item_text[check_in_start:check_in_end]
+                check_out_start = item_text.find(':', check_in_end) + 2
+                check_out_end = item_text.find('\n', check_out_start)
+                check_out = item_text[check_out_start:check_out_end]
+                adults_count_start = check_out_end + 1
+                adults_count_end = item_text.find(' ', adults_count_start)
+                adults_count = int(item_text[adults_count_start: adults_count_end])
+                children_count_start = item_text.find(',', adults_count_end) + 2
+                children_count_end = item_text.find(' ', children_count_start)
+                children_count = int(item_text[children_count_start: children_count_end])
+
+                self.update_delete_dialog.current_item_label.setText(managing_text + hotel_name + f', Apart. No.{apartment_number}, Check-in: {check_in}')
+                self.update_delete_dialog.passport_number_line_edit_3.setText(passport_number)
+                self.update_delete_dialog.hotel_name_line_edit_5.setText(hotel_name)
+                self.update_delete_dialog.apart_number_spin_box_3.setValue(apartment_number)
+                check_in_date_time = datetime.datetime.strptime(check_in, '%Y-%m-%d')
+                self.update_delete_dialog.check_in_date_edit.setMinimumDate(check_in_date_time)
+                self.update_delete_dialog.check_in_date_edit.setMaximumDate(check_in_date_time + datetime.timedelta(days=366))
+                self.update_delete_dialog.check_out_date_edit.setMinimumDate(check_in_date_time + datetime.timedelta(days=1))
+                self.update_delete_dialog.check_out_date_edit.setMaximumDate(check_in_date_time + datetime.timedelta(days=367))
+                self.update_delete_dialog.check_out_date_edit.setDate(datetime.datetime.strptime(check_out, '%Y-%m-%d'))
+                self.update_delete_dialog.adults_count_spin_box.setValue(adults_count)
+                self.update_delete_dialog.children_count_spin_box.setValue(children_count)
+
+            elif index == MainWindow.GUEST_PAGE:
+                first_name_start = item_text.find(':') + 2
+                first_name_end = item_text.find('\n', first_name_start)
+                first_name = item_text[first_name_start: first_name_end]
+                last_name_start = item_text.find(':', first_name_end) + 2
+                last_name_end = item_text.find('\n', last_name_start)
+                last_name = item_text[last_name_start: last_name_end]
+                passport_number_start = item_text.find(':', last_name_end) + 2
+                passport_number_end = item_text.find('\n', passport_number_start)
+                passport_number = item_text[passport_number_start: passport_number_end]
+                email_start = item_text.find(':', passport_number_end) + 2
+                email_end = item_text.find('\n', email_start)
+                if email_end < 0:
+                    email_end = len(item_text)
+                email = item_text[email_start: email_end]
+                if email_end != len(item_text):
+                     phone_number_start =  item_text.find(':', email_end + 1)
+                     phone_number_start += 2
+                     phone_number_end = len(item_text)
+                     phone_number = item_text[phone_number_start: phone_number_end]
+                else:
+                    phone_number = None
+
+                self.update_delete_dialog.current_item_label.setText(managing_text + passport_number)
+                self.update_delete_dialog.first_name_line_edit.setText(first_name)
+                self.update_delete_dialog.last_name_line_edit.setText(last_name)
+                self.update_delete_dialog.passport_number_line_edit.setText(passport_number)
+                self.update_delete_dialog.email_line_edit.setText(email)
+                if phone_number is not None:
+                    self.update_delete_dialog.phone_number_line_edit.setText(phone_number)
+
+            self.update_delete_dialog.delete_button.setEnabled(True)
             self.update_delete_dialog.exec()
             self.clear_update_delete_dialog()
 
