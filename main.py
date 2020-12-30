@@ -46,6 +46,14 @@ class MainWindow(QMainWindow):
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
         self.search_list.itemDoubleClicked.connect(self.administer_item)
         self.add_dialog.add_button.clicked.connect(self.add_entry)
+        self.update_delete_dialog.city_name_line_edit.textChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.hotel_name_line_edit.textChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.hotel_name_line_edit_2.textChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.apart_number_spin_box.valueChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.hotel_name_line_edit_5.textChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.apart_number_spin_box_3.valueChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.check_in_date_edit.dateChanged.connect(self.disable_dialog_delete_button)
+        self.update_delete_dialog.passport_number_line_edit.textChanged.connect(self.disable_dialog_delete_button)
 
     def configure_error_dialog(self):
         self.error_dialog.resize(300, 300)
@@ -75,6 +83,9 @@ class MainWindow(QMainWindow):
         self.children_count = -1
         self.hotel_name = ''
         self.apartment_number = -1
+
+    def disable_dialog_delete_button(self):
+        self.update_delete_dialog.delete_button.setEnabled(False)
 
     def error(self, message):
         self.error_label.setText(message)
@@ -533,6 +544,7 @@ class MainWindow(QMainWindow):
         self.update_delete_dialog.check_out_date_edit.setDate(datetime.datetime.strptime('2000-01-01', '%Y-%m-%d'))
         self.update_delete_dialog.adults_count_spin_box.setValue(1)
         self.update_delete_dialog.children_count_spin_box.setValue(0)
+        self.update_delete_dialog.delete_button.setEnabled(True)
 
     def administer_item(self, item):
         index = self.search_combo_box.currentIndex()
