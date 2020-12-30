@@ -17,6 +17,8 @@ class MainWindow(QMainWindow):
     APARTMENT_PAGE = 2
     BOOKING_PAGE = 3
     GUEST_PAGE = 4
+    CURRENT_ITEM_BASE_LABEL = 'Managing: '
+    CURRENT_ITEM_BASE_LABEL_LEN = len(CURRENT_ITEM_BASE_LABEL)
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -46,6 +48,8 @@ class MainWindow(QMainWindow):
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
         self.search_list.itemDoubleClicked.connect(self.administer_item)
         self.add_dialog.add_button.clicked.connect(self.add_entry)
+        self.update_delete_dialog.update_button.clicked.connect(self.update_entry)
+        self.update_delete_dialog.delete_button.clicked.connect(self.delete_entry)
         self.update_delete_dialog.city_name_line_edit.textChanged.connect(self.disable_dialog_delete_button)
         self.update_delete_dialog.hotel_name_line_edit.textChanged.connect(self.disable_dialog_delete_button)
         self.update_delete_dialog.hotel_name_line_edit_2.textChanged.connect(self.disable_dialog_delete_button)
@@ -366,7 +370,7 @@ class MainWindow(QMainWindow):
                             f"AND LOWER(city_name) LIKE LOWER('%{city_name}%') " +\
                             "AND h.city_id = c.city_id " +\
                             "AND hd.hotel_id = h.hotel_id")
-            items = [f'{row[0]}\n{row[1]}\nContact: {row[2]}{f"{chr(10)}Manager: {row[3]}" if row[3] is not None else ""}\n' +\
+            items = [f'{row[0]}\n{row[1]}\nContact: {row[2].strip()}{f"{chr(10)}Manager: {row[3]}" if row[3] is not None else ""}\n' +\
                     f'{row[4]}{f"{chr(10)}Rating: {row[5]}" if row[5] is not None else ""}\n' +\
                     f"{f'Hotel restaurant {chr(10003)} ' if row[6] == 1 else ''}" +\
                     f"{f'Free meals {chr(10003)} ' if row[7] == 1 else ''}" +\
@@ -436,7 +440,7 @@ class MainWindow(QMainWindow):
                             f"AND LOWER(passport_number) LIKE LOWER('%{passport_number}%') " +\
                             f"AND LOWER(email) LIKE LOWER('%{email}%')")
             items = [f'First name: {row[0]}\nLast name: {row[1]}\nPassport: {row[2]}\nEmail: {row[3]}' +\
-                    f'{f"{chr(10)}Phone number: {row[4]}" if row[4] is not None else ""}'
+                    f'{f"{chr(10)}Phone number: {row[4].strip()}" if row[4] is not None else ""}'
                     for row in cursor]
 
         return items
@@ -512,7 +516,7 @@ class MainWindow(QMainWindow):
         self.add_dialog.double_bed_check_box.setChecked(False)
 
     def clear_update_delete_dialog(self):
-        self.update_delete_dialog.current_item_label.setText('Managing: ')
+        self.update_delete_dialog.current_item_label.setText(MainWindow.CURRENT_ITEM_BASE_LABEL)
         self.update_delete_dialog.city_name_line_edit.clear()
         self.update_delete_dialog.hotel_name_line_edit.clear()
         self.update_delete_dialog.city_name_line_edit_2.clear()
@@ -769,7 +773,7 @@ class MainWindow(QMainWindow):
             with self.db_connection.cursor() as cursor:
                 cursor.execute(f"""INSERT INTO CITY (city_name)
                                 VALUES ('{city_name}')""")
-        if index == MainWindow.HOTEL_PAGE:
+        elif index == MainWindow.HOTEL_PAGE:
             hotel_name = self.add_dialog.hotel_name_line_edit.text()
             city_name = self.add_dialog.city_name_line_edit_2.text()
             contact_number = self.add_dialog.contact_number_line_edit.text()
@@ -802,7 +806,7 @@ class MainWindow(QMainWindow):
                                 f"{pool}, " +\
                                 f"{free_internet}" +\
                                 ")")
-        if index == MainWindow.APARTMENT_PAGE:
+        elif index == MainWindow.APARTMENT_PAGE:
             hotel_name = self.add_dialog.hotel_name_line_edit_2.text()
             apartment_number = self.add_dialog.apart_number_spin_box.value()
             room_count = self.add_dialog.room_count_spin_box.value()
@@ -835,6 +839,107 @@ class MainWindow(QMainWindow):
             cursor.execute('COMMIT')
 
         self.add_dialog.accept()
+
+    def update_entry(self):
+        index = self.update_delete_dialog.update_delete_stacked_widget.currentIndex()
+        managing_text = str(self.update_delete_dialog.current_item_label.text())
+        if index == MainWindow.CITY_PAGE:
+            old_city_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
+            city_name = self.update_delete_dialog.city_name_line_edit.text()
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE CITY
+                                    SET city_name = '{city_name}'
+                                    WHERE city_name = '{old_city_name}'
+                """)
+
+        elif index == MainWindow.HOTEL_PAGE:
+            old_hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit.text()
+            city_name = self.update_delete_dialog.city_name_line_edit_2.text()
+            contact_number = self.update_delete_dialog.contact_number_line_edit.text()
+            manager_name = self.update_delete_dialog.manager_name_line_edit.text()
+            text_desc = self.update_delete_dialog.text_desc_text_edit.toPlainText()
+            try:
+                rating = int(self.update_delete_dialog.rating_combo_box.currentText())
+            except ValueError:
+                rating = None
+            restaurant = int(self.update_delete_dialog.restaurant_check_box.isChecked())
+            free_meals = int(self.update_delete_dialog.free_meals_check_box.isChecked())
+            pool = int(self.update_delete_dialog.pool_check_box.isChecked())
+            free_internet = int(self.update_delete_dialog.free_internet_check_box.isChecked())
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE HOTEL_DESCRIPTION
+                                    SET text_desc = '{text_desc}',
+                                        rating = {rating if rating is not None else 'null'},
+                                        restaurant = {restaurant},
+                                        free_meals = {free_meals},
+                                        pool = {pool},
+                                        free_internet = {free_internet}
+                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                """)
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE HOTEL
+                                    SET hotel_name = '{hotel_name}',
+                                        city_id = (SELECT city_id FROM CITY WHERE city_name = '{city_name}'),
+                                        contact_number = '{contact_number}',
+                                        manager_name = {'manager_name' if manager_name != '' else 'null'}
+                                    WHERE hotel_name = '{old_hotel_name}'
+                """)
+
+        elif index == MainWindow.APARTMENT_PAGE:
+            last_comma = managing_text.rfind(',')
+            old_hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: last_comma]
+            last_dot = managing_text.rfind('.')
+            old_apartment_number = int(managing_text[last_dot + 1: ])
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit_2.text()
+            apart_number = self.update_delete_dialog.apart_number_spin_box.value()
+            room_count = self.update_delete_dialog.room_count_spin_box.value()
+            capacity = self.update_delete_dialog.apart_capacity_spin_box.value()
+            price_per_night_euro = self.update_delete_dialog.price_per_night_spin_box.value()
+            ac = int(self.update_delete_dialog.ac_check_box.isChecked())
+            minibar = int(self.update_delete_dialog.minibar_check_box.isChecked())
+            tv = int(self.update_delete_dialog.tv_check_box.isChecked())
+            double_bed = int(self.update_delete_dialog.double_bed_check_box.isChecked())
+
+            print(f'!{old_hotel_name}!')
+            print(f'!{old_apartment_number}!')
+
+            with self.db_connection.cursor() as cursor:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE APARTMENT_DESCRIPTION
+                                        SET air_conditioner = {ac},
+                                            minibar = {minibar},
+                                            tv = {tv},
+                                            double_bed = {double_bed}
+                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                            AND apart_number = {old_apartment_number}
+                    """)
+
+                    cursor.execute(f"""UPDATE APARTMENT
+                                        SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
+                                            apart_number = {apart_number},
+                                            room_count = {room_count},
+                                            apart_capacity = {capacity},
+                                            price_per_night_euro = {price_per_night_euro}
+                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                            AND apart_number = {old_apartment_number}
+
+                    """)
+
+        elif index == MainWindow.BOOKING_PAGE:
+            pass
+        elif index == MainWindow.GUEST_PAGE:
+            pass
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('COMMIT')
+
+        self.update_delete_dialog.accept()
+
+    def delete_entry(self):
+        pass
 
     def clean_up(self):
         self.db_connection.close()
