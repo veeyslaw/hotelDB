@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
         self.search_list.itemDoubleClicked.connect(self.administer_item)
-        self.add_dialog.add_button.connect(self.add_entry)
+        self.add_dialog.add_button.clicked.connect(self.add_entry)
 
     def configure_error_dialog(self):
         self.error_dialog.resize(300, 300)
@@ -542,15 +542,81 @@ class MainWindow(QMainWindow):
                     self.add_dialog.apart_number_spin_box.setValue(apart_number)
 
             self.add_dialog.exec()
+            self.search_list.clear()
 
     def add_entry(self):
         index = self.add_dialog.add_stacked_widget.currentIndex()
         if index == MainWindow.CITY_PAGE:
-            pass
+            city_name = self.add_dialog.city_name_line_edit.text()
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""INSERT INTO CITY (city_name)
+                                VALUES ('{city_name}')""")
         if index == MainWindow.HOTEL_PAGE:
-            pass
+            hotel_name = self.add_dialog.hotel_name_line_edit.text()
+            city_name = self.add_dialog.city_name_line_edit_2.text()
+            contact_number = self.add_dialog.contact_number_line_edit.text()
+            manager_name = self.add_dialog.manager_name_line_edit.text()
+            manager_name_line = f", '{manager_name}'" if manager_name != '' else ''
+            text_desc = self.add_dialog.text_desc_text_edit.toPlainText()
+            try:
+                rating = int(self.add_dialog.rating_combo_box.currentText())
+            except ValueError:
+                rating = None
+            restaurant = int(self.add_dialog.restaurant_check_box.isChecked())
+            free_meals = int(self.add_dialog.free_meals_check_box.isChecked())
+            pool = int(self.add_dialog.pool_check_box.isChecked())
+            free_internet = int(self.add_dialog.free_internet_check_box.isChecked())
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO HOTEL (hotel_name, city_id, contact_number{f', manager_name' if manager_name != '' else ''}) " +\
+                                f"VALUES ('{hotel_name}', " +\
+                                f"(SELECT city_id FROM CITY WHERE city_name = '{city_name}'), " +\
+                                f"'{contact_number}'" +\
+                                manager_name_line +\
+                                ")")
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc{f', rating' if rating is not None else ''}, restaurant, free_meals, pool, free_internet) " +\
+                                f"VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, " +\
+                                f"'{text_desc}', " +\
+                                f"{f'{rating}, ' if rating is not None else ''}" +\
+                                f"{restaurant}, " +\
+                                f"{free_meals}, " +\
+                                f"{pool}, " +\
+                                f"{free_internet}" +\
+                                ")")
         if index == MainWindow.APARTMENT_PAGE:
-            pass
+            hotel_name = self.add_dialog.hotel_name_line_edit_2.text()
+            apartment_number = self.add_dialog.apart_number_spin_box.value()
+            room_count = self.add_dialog.room_count_spin_box.value()
+            capacity = self.add_dialog.apart_capacity_spin_box.value()
+            price_per_night_euro = self.add_dialog.price_per_night_spin_box.value()
+            ac = int(self.add_dialog.ac_check_box.isChecked())
+            minibar = int(self.add_dialog.minibar_check_box.isChecked())
+            tv = int(self.add_dialog.tv_check_box.isChecked())
+            double_bed = int(self.add_dialog.double_bed_check_box.isChecked())
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro) " +\
+                                f"VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'), " +\
+                                f"{apartment_number}, " +\
+                                f"{room_count}, " +\
+                                f"{capacity}, " +\
+                                f"{price_per_night_euro}" +\
+                                ")")
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed) " +\
+                                f"VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'), " +\
+                                f"{apartment_number}, " +\
+                                f"{ac}, " +\
+                                f"{minibar}, " +\
+                                f"{tv}, " +\
+                                f"{double_bed}" +\
+                                ")")
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('COMMIT')
+
+        self.add_dialog.accept()
 
     def clean_up(self):
         self.db_connection.close()
