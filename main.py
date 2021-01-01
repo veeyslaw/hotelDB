@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
         self.search_button_2.clicked.connect(self.search_admin)
         self.search_combo_box.currentIndexChanged.connect(self.on_search_combo_box_change)
         self.check_in_date_edit.dateChanged.connect(self.on_check_in_date_change)
+        self.offers_list.itemClicked.connect(self.book)
         self.search_list.itemDoubleClicked.connect(self.administer_item)
         self.add_dialog.add_button.clicked.connect(self.add_entry)
         self.update_delete_dialog.update_button.clicked.connect(self.update_entry)
@@ -172,18 +173,17 @@ class MainWindow(QMainWindow):
                     city_name,
                     hotel_name,
                     text_desc, rating, restaurant, free_meals, pool, free_internet,
-                    a.apart_number, room_count, price_per_night_euro,
+                    apart_number, room_count, price_per_night_euro,
                     air_conditioner, minibar, tv, double_bed
                 FROM
                     CITY c,
                     HOTEL h,
                     HOTEL_DESCRIPTION hd,
-                    (SELECT hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro
+                    (SELECT *
                      FROM APARTMENT inner_a
                      WHERE (SELECT COUNT(*)
                             FROM BOOKING b
-                            WHERE b.hotel_id = inner_a.hotel_id
-                                AND b.apart_number = inner_a.apart_number
+                            WHERE b.apart_id = inner_a.apart_id
                                 AND b.check_out > TO_DATE('{self.check_in}', 'YYYY-MM-DD')
                                 AND b.check_in < TO_DATE('{self.check_out}', 'YYYY-MM-DD')) = 0)
                     a,
@@ -192,8 +192,7 @@ class MainWindow(QMainWindow):
                     c.city_id = h.city_id
                     AND h.hotel_id = hd.hotel_id
                     AND a.hotel_id = h.hotel_id
-                    AND ad.hotel_id = a.hotel_id
-                    AND ad.apart_number = a.apart_number
+                    AND ad.apart_id = a.apart_id
                     AND restaurant >= {restaurant}
                     AND free_meals >= {free_meals}
                     AND pool >= {pool}
@@ -244,7 +243,6 @@ class MainWindow(QMainWindow):
         for offer in offers:
             self.add_offer(offer)
 
-        self.offers_list.itemClicked.connect(self.book)
         self.main_stacked_widget.setCurrentIndex(MainWindow.OFFERS_PAGE)
 
     def book(self, item):
@@ -274,7 +272,7 @@ class MainWindow(QMainWindow):
         phone_number_text = f", '{phone_number}'" if len(phone_number) > 0 else ''
 
         with self.db_connection.cursor() as cursor:
-            cursor.execute(f"SELECT first_name, last_name, email, phone_number FROM GUEST WHERE LOWER(passport_number) = LOWER('{passport_number}')")
+            cursor.execute(f"SELECT first_name, last_name, email, phone_number FROM GUEST WHERE passport_number = '{passport_number}'")
             guest_data = [row for row in cursor]
 
         if len(guest_data) == 0:
@@ -290,10 +288,11 @@ class MainWindow(QMainWindow):
             sysdate = str(cursor.execute('SELECT SYSDATE FROM DUAL').fetchone()[0].date())
 
         with self.db_connection.cursor() as cursor:
-            cursor.execute(f"""INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-                            VALUES ((SELECT guest_id FROM GUEST WHERE LOWER(passport_number) = LOWER('{passport_number}')),
-                                    (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{self.hotel_name}'),
-                                    {self.apartment_number},
+            cursor.execute(f"""INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+                            VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
+                                    (SELECT apart_id FROM APARTMENT
+                                     WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{self.hotel_name}')
+                                         AND apart_number = {self.apartment_number}),
                                     TO_DATE('{sysdate}', 'YYYY-MM-DD'),
                                     TO_DATE('{self.check_in}', 'YYYY-MM-DD'),
                                     TO_DATE('{self.check_out}', 'YYYY-MM-DD'),
@@ -385,14 +384,13 @@ class MainWindow(QMainWindow):
         apartment_number = self.apartment_number_spin_box.value()
 
         with self.db_connection.cursor() as cursor:
-            cursor.execute("SELECT hotel_name, a.apart_number, room_count, apart_capacity, price_per_night_euro, " +\
+            cursor.execute("SELECT hotel_name, apart_number, room_count, apart_capacity, price_per_night_euro, " +\
                                     "air_conditioner, minibar, tv, double_bed " +\
                             "FROM HOTEL h, APARTMENT a, APARTMENT_DESCRIPTION ad " +\
                             f"WHERE LOWER(hotel_name) LIKE LOWER('%{hotel_name}%') " +\
-                            f"{f'AND a.apart_number = {apartment_number} ' if apartment_number > 0 else ''}" +\
+                            f"{f'AND apart_number = {apartment_number} ' if apartment_number > 0 else ''}" +\
                             "AND h.hotel_id = a.hotel_id " +\
-                            "AND ad.hotel_id = a.hotel_id " +\
-                            "AND ad.apart_number = a.apart_number")
+                            "AND ad.apart_id = a.apart_id")
             items = [f'{row[0]}, Apart. No.{row[1]}\n{row[2]} rooms, capacity - {row[3]}, {row[4]} {chr(8364)} per night\n' +\
                     f"{f'AC {chr(10003)} ' if row[5] == 1 else ''}" +\
                     f"{f'Minibar {chr(10003)} ' if row[6] == 1 else ''}" +\
@@ -412,12 +410,13 @@ class MainWindow(QMainWindow):
         with self.db_connection.cursor() as cursor:
             cursor.execute("SELECT passport_number, hotel_name, apart_number, book_date, " +\
                                     "check_in, check_out, adults_count, children_count " +\
-                            "FROM BOOKING b, GUEST g, HOTEL h " +\
+                            "FROM BOOKING b, GUEST g, APARTMENT a, HOTEL h " +\
                             f"WHERE LOWER(hotel_name) LIKE LOWER('%{hotel_name}%') " +\
                             f"{f'AND apart_number = {apartment_number} ' if apartment_number > 0 else ''}" +\
                             f"AND LOWER(passport_number) LIKE LOWER('%{passport_number}%') " +\
                             check_in_line +\
-                            "AND h.hotel_id = b.hotel_id " +\
+                            "AND b.apart_id = a.apart_id " +\
+                            "AND h.hotel_id = a.hotel_id " +\
                             "AND b.guest_id = g.guest_id ")
             items = [f'{row[1]}, Apart. No.{row[2]}, Guest passport number: {row[0]}\n' +\
                     f'Booked on: {str(row[3].date())}, Check-in: {str(row[4].date())}, Check-out: {str(row[5].date())}\n' +\
@@ -826,9 +825,10 @@ class MainWindow(QMainWindow):
                                 f"{price_per_night_euro}" +\
                                 ")")
             with self.db_connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed) " +\
-                                f"VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'), " +\
-                                f"{apartment_number}, " +\
+                cursor.execute(f"INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed) " +\
+                                f"VALUES ((SELECT apart_id FROM APARTMENT " +\
+                                f"        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}') " +\
+                                f"        AND apart_number = {apartment_number}), " +\
                                 f"{ac}, " +\
                                 f"{minibar}, " +\
                                 f"{tv}, " +\
@@ -846,6 +846,7 @@ class MainWindow(QMainWindow):
         if index == MainWindow.CITY_PAGE:
             old_city_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
             city_name = self.update_delete_dialog.city_name_line_edit.text()
+
             with self.db_connection.cursor() as cursor:
                 cursor.execute(f"""UPDATE CITY
                                     SET city_name = '{city_name}'
@@ -884,7 +885,7 @@ class MainWindow(QMainWindow):
                                     SET hotel_name = '{hotel_name}',
                                         city_id = (SELECT city_id FROM CITY WHERE city_name = '{city_name}'),
                                         contact_number = '{contact_number}',
-                                        manager_name = {'manager_name' if manager_name != '' else 'null'}
+                                        manager_name = {f"'{manager_name}'" if manager_name != '' else 'null'}
                                     WHERE hotel_name = '{old_hotel_name}'
                 """)
 
@@ -903,35 +904,95 @@ class MainWindow(QMainWindow):
             tv = int(self.update_delete_dialog.tv_check_box.isChecked())
             double_bed = int(self.update_delete_dialog.double_bed_check_box.isChecked())
 
-            print(f'!{old_hotel_name}!')
-            print(f'!{old_apartment_number}!')
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE APARTMENT_DESCRIPTION
+                                    SET air_conditioner = {ac},
+                                        minibar = {minibar},
+                                        tv = {tv},
+                                        double_bed = {double_bed}
+                                    WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                      WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                      AND apart_number = {old_apartment_number})
+                """)
 
             with self.db_connection.cursor() as cursor:
-                with self.db_connection.cursor() as cursor:
-                    cursor.execute(f"""UPDATE APARTMENT_DESCRIPTION
-                                        SET air_conditioner = {ac},
-                                            minibar = {minibar},
-                                            tv = {tv},
-                                            double_bed = {double_bed}
-                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
-                                            AND apart_number = {old_apartment_number}
-                    """)
-
-                    cursor.execute(f"""UPDATE APARTMENT
-                                        SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
-                                            apart_number = {apart_number},
-                                            room_count = {room_count},
-                                            apart_capacity = {capacity},
-                                            price_per_night_euro = {price_per_night_euro}
-                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
-                                            AND apart_number = {old_apartment_number}
-
-                    """)
+                cursor.execute(f"""UPDATE APARTMENT
+                                    SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
+                                        apart_number = {apart_number},
+                                        room_count = {room_count},
+                                        apart_capacity = {capacity},
+                                        price_per_night_euro = {price_per_night_euro}
+                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                        AND apart_number = {old_apartment_number}
+                """)
 
         elif index == MainWindow.BOOKING_PAGE:
-            pass
+            old_hotel_name_start = managing_text.find(':') + 2
+            old_hotel_name_end = managing_text.find(',')
+            old_hotel_name = managing_text[old_hotel_name_start: old_hotel_name_end]
+            last_comma = managing_text.rfind(',')
+            old_apart_number_start = managing_text.rfind('.') + 1
+            old_apart_number = int(managing_text[old_apart_number_start: last_comma])
+            old_check_in_start = managing_text.rfind(':') + 2
+            old_check_in = managing_text[old_check_in_start: ]
+
+            passport_number = self.update_delete_dialog.passport_number_line_edit_3.text()
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit_5.text()
+            apart_number = self.update_delete_dialog.apart_number_spin_box_3.value()
+            check_in = str(self.update_delete_dialog.check_in_date_edit.date().toPyDate())
+            check_out = str(self.update_delete_dialog.check_out_date_edit.date().toPyDate())
+            adults_count = self.update_delete_dialog.adults_count_spin_box.value()
+            children_count = self.update_delete_dialog.children_count_spin_box.value()
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE BOOKING
+                                    SET guest_id = (SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
+                                        apart_id = (SELECT apart_id FROM APARTMENT
+                                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                          AND apart_number = {apart_number}),
+                                        check_in = TO_DATE('{check_in}', 'YYYY-MM-DD'),
+                                        check_out = TO_DATE('{check_out}', 'YYYY-MM-DD'),
+                                        adults_count = {adults_count},
+                                        children_count = {children_count}
+                                    WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                      WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                      AND apart_number = {old_apart_number})
+                                          AND check_in LIKE TO_DATE('{old_check_in}', 'YYYY-MM-DD')
+                                          AND (SELECT apart_capacity FROM APARTMENT
+                                                            WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                            AND apart_number = {apart_number})
+                                              >= {adults_count + children_count}
+                                          AND ((SELECT COUNT(*)
+                                                 FROM BOOKING b,
+                                                      (SELECT * FROM APARTMENT
+                                                       WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                             AND apart_number = {apart_number})
+                                                      a
+                                                 WHERE b.apart_id = a.apart_id
+                                                     AND b.check_out > TO_DATE('{check_in}', 'YYYY-MM-DD')
+                                                     AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')) = 0
+                                              OR {int(hotel_name == old_hotel_name and apart_number == old_apart_number)} > 0)
+                """)
+
         elif index == MainWindow.GUEST_PAGE:
-            pass
+            old_passport_number_start = managing_text.find(':') + 2
+            old_passport_number = managing_text[old_passport_number_start: ]
+
+            first_name = self.update_delete_dialog.first_name_line_edit.text()
+            last_name = self.update_delete_dialog.last_name_line_edit.text()
+            passport_number = self.update_delete_dialog.passport_number_line_edit.text()
+            email = self.update_delete_dialog.email_line_edit.text()
+            phone_number = self.update_delete_dialog.phone_number_line_edit.text()
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE GUEST
+                                    SET first_name = '{first_name}',
+                                        last_name = '{last_name}',
+                                        passport_number = '{passport_number}',
+                                        email = '{email}',
+                                        phone_number = {f"'{phone_number}'" if phone_number != '' else 'null'}
+                                    WHERE passport_number = '{old_passport_number}'
+                """)
 
         with self.db_connection.cursor() as cursor:
             cursor.execute('COMMIT')
@@ -939,7 +1000,161 @@ class MainWindow(QMainWindow):
         self.update_delete_dialog.accept()
 
     def delete_entry(self):
-        pass
+        index = self.update_delete_dialog.update_delete_stacked_widget.currentIndex()
+        managing_text = str(self.update_delete_dialog.current_item_label.text())
+        if index == MainWindow.CITY_PAGE:
+            city_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""DELETE FROM CITY
+                                    WHERE city_name = '{city_name}'
+                """)
+
+        elif index == MainWindow.HOTEL_PAGE:
+            old_hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit.text()
+            city_name = self.update_delete_dialog.city_name_line_edit_2.text()
+            contact_number = self.update_delete_dialog.contact_number_line_edit.text()
+            manager_name = self.update_delete_dialog.manager_name_line_edit.text()
+            text_desc = self.update_delete_dialog.text_desc_text_edit.toPlainText()
+            try:
+                rating = int(self.update_delete_dialog.rating_combo_box.currentText())
+            except ValueError:
+                rating = None
+            restaurant = int(self.update_delete_dialog.restaurant_check_box.isChecked())
+            free_meals = int(self.update_delete_dialog.free_meals_check_box.isChecked())
+            pool = int(self.update_delete_dialog.pool_check_box.isChecked())
+            free_internet = int(self.update_delete_dialog.free_internet_check_box.isChecked())
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE HOTEL_DESCRIPTION
+                                    SET text_desc = '{text_desc}',
+                                        rating = {rating if rating is not None else 'null'},
+                                        restaurant = {restaurant},
+                                        free_meals = {free_meals},
+                                        pool = {pool},
+                                        free_internet = {free_internet}
+                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                """)
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE HOTEL
+                                    SET hotel_name = '{hotel_name}',
+                                        city_id = (SELECT city_id FROM CITY WHERE city_name = '{city_name}'),
+                                        contact_number = '{contact_number}',
+                                        manager_name = {f"'{manager_name}'" if manager_name != '' else 'null'}
+                                    WHERE hotel_name = '{old_hotel_name}'
+                """)
+
+        elif index == MainWindow.APARTMENT_PAGE:
+            last_comma = managing_text.rfind(',')
+            old_hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: last_comma]
+            last_dot = managing_text.rfind('.')
+            old_apartment_number = int(managing_text[last_dot + 1: ])
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit_2.text()
+            apart_number = self.update_delete_dialog.apart_number_spin_box.value()
+            room_count = self.update_delete_dialog.room_count_spin_box.value()
+            capacity = self.update_delete_dialog.apart_capacity_spin_box.value()
+            price_per_night_euro = self.update_delete_dialog.price_per_night_spin_box.value()
+            ac = int(self.update_delete_dialog.ac_check_box.isChecked())
+            minibar = int(self.update_delete_dialog.minibar_check_box.isChecked())
+            tv = int(self.update_delete_dialog.tv_check_box.isChecked())
+            double_bed = int(self.update_delete_dialog.double_bed_check_box.isChecked())
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE APARTMENT_DESCRIPTION
+                                    SET air_conditioner = {ac},
+                                        minibar = {minibar},
+                                        tv = {tv},
+                                        double_bed = {double_bed}
+                                    WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                      WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                      AND apart_number = {old_apartment_number})
+                """)
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE APARTMENT
+                                    SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
+                                        apart_number = {apart_number},
+                                        room_count = {room_count},
+                                        apart_capacity = {capacity},
+                                        price_per_night_euro = {price_per_night_euro}
+                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                        AND apart_number = {old_apartment_number}
+                """)
+
+        elif index == MainWindow.BOOKING_PAGE:
+            old_hotel_name_start = managing_text.find(':') + 2
+            old_hotel_name_end = managing_text.find(',')
+            old_hotel_name = managing_text[old_hotel_name_start: old_hotel_name_end]
+            last_comma = managing_text.rfind(',')
+            old_apart_number_start = managing_text.rfind('.') + 1
+            old_apart_number = int(managing_text[old_apart_number_start: last_comma])
+            old_check_in_start = managing_text.rfind(':') + 2
+            old_check_in = managing_text[old_check_in_start: ]
+
+            passport_number = self.update_delete_dialog.passport_number_line_edit_3.text()
+            hotel_name = self.update_delete_dialog.hotel_name_line_edit_5.text()
+            apart_number = self.update_delete_dialog.apart_number_spin_box_3.value()
+            check_in = str(self.update_delete_dialog.check_in_date_edit.date().toPyDate())
+            check_out = str(self.update_delete_dialog.check_out_date_edit.date().toPyDate())
+            adults_count = self.update_delete_dialog.adults_count_spin_box.value()
+            children_count = self.update_delete_dialog.children_count_spin_box.value()
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE BOOKING
+                                    SET guest_id = (SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
+                                        apart_id = (SELECT apart_id FROM APARTMENT
+                                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                          AND apart_number = {apart_number}),
+                                        check_in = TO_DATE('{check_in}', 'YYYY-MM-DD'),
+                                        check_out = TO_DATE('{check_out}', 'YYYY-MM-DD'),
+                                        adults_count = {adults_count},
+                                        children_count = {children_count}
+                                    WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                      WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                      AND apart_number = {old_apart_number})
+                                          AND check_in LIKE TO_DATE('{old_check_in}', 'YYYY-MM-DD')
+                                          AND (SELECT apart_capacity FROM APARTMENT
+                                                            WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                            AND apart_number = {apart_number})
+                                              >= {adults_count + children_count}
+                                          AND ((SELECT COUNT(*)
+                                                 FROM BOOKING b,
+                                                      (SELECT * FROM APARTMENT
+                                                       WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                             AND apart_number = {apart_number})
+                                                      a
+                                                 WHERE b.apart_id = a.apart_id
+                                                     AND b.check_out > TO_DATE('{check_in}', 'YYYY-MM-DD')
+                                                     AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')) = 0
+                                              OR {int(hotel_name == old_hotel_name and apart_number == old_apart_number)} > 0)
+                """)
+
+        elif index == MainWindow.GUEST_PAGE:
+            old_passport_number_start = managing_text.find(':') + 2
+            old_passport_number = managing_text[old_passport_number_start: ]
+
+            first_name = self.update_delete_dialog.first_name_line_edit.text()
+            last_name = self.update_delete_dialog.last_name_line_edit.text()
+            passport_number = self.update_delete_dialog.passport_number_line_edit.text()
+            email = self.update_delete_dialog.email_line_edit.text()
+            phone_number = self.update_delete_dialog.phone_number_line_edit.text()
+
+            with self.db_connection.cursor() as cursor:
+                cursor.execute(f"""UPDATE GUEST
+                                    SET first_name = '{first_name}',
+                                        last_name = '{last_name}',
+                                        passport_number = '{passport_number}',
+                                        email = '{email}',
+                                        phone_number = {f"'{phone_number}'" if phone_number != '' else 'null'}
+                                    WHERE passport_number = '{old_passport_number}'
+                """)
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('COMMIT')
+
+        self.update_delete_dialog.accept()
 
     def clean_up(self):
         self.db_connection.close()

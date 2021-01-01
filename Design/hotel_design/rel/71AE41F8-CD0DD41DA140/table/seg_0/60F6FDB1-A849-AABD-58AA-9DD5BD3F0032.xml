@@ -56,14 +56,10 @@
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:10:15 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<constraintName>APARTMENT_ROOM_NUMBER_CK</constraintName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>1</dataTypePrecision>
-<checkConstraint>
-<implementationDef dbType="Generic Constraint" definition="room_count BETWEEN 1 AND 4"/>
-</checkConstraint>
 <ownDataTypeParameters>,1,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
