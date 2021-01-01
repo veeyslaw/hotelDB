@@ -4,7 +4,7 @@
 <createdTime>2020-12-09 09:43:52 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <referredTableLongName>HOTEL</referredTableLongName>
-<deleteRule>NO ACTION</deleteRule>
+<deleteRule>CASCADE</deleteRule>
 <referredTableID>93EC38E1-E479-BDA8-1F61-7908FB6D282D</referredTableID>
 <keyObject>7BAB91EA-FA01-D041-E75A-C29B106502AC</keyObject>
 <referredKeyID>7BAB91EA-FA01-D041-E75A-C29B106502AC</referredKeyID>

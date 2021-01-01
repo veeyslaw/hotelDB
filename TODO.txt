@@ -2,8 +2,5 @@ ASC display
 treat exceptions
 ROLLBACK in error?
 
-make hotel_name unique
 recheck all constraints
-should all options be mandatory
 refactor?
-add book interval to offers

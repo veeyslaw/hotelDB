@@ -8,6 +8,22 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="apart_id" id="EA9F05D1-459A-3C21-33D4-A0266B50868A">
+<createdBy>Userr</createdBy>
+<createdTime>2021-01-01 16:22:32 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<ownDataTypeParameters>,5,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementMaxValue>99999</autoIncrementMaxValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>APARTMENT_APARTMENT_ID_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>APARTMENT_APARTMENT_ID_TRG</autoIncrementTriggerName>
+</Column>
 <Column name="hotel_id" id="E3BAF426-E267-C809-14BD-ABE0E8E94E78">
 <createdBy>Userr</createdBy>
 <createdTime>2020-11-30 21:27:13 UTC</createdTime>
@@ -86,6 +102,16 @@
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EA9F05D1-459A-3C21-33D4-A0266B50868A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DA8C28EE-9AAC-2DB2-D6B5-A73E0466CAC9" name="APARTMENT_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2021-01-01 16:22:32 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>

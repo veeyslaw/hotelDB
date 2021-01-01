@@ -45,100 +45,100 @@ VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, 'Hotelul se afla pe varful muntelui. Toate a
 -- stefan
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 1, 3, 6, 300);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 1, 1, 1, 1, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 1, 1);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 2, 2, 200);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 2, 1, 1, 1, 0);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 1, 0);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10, 2, 3, 150);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10, 1, 0, 1, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 0, 1, 1);
 
 -- univer
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 1, 2, 75);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1, 1, 0, 0, 0);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 0, 0, 0);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2, 1, 2, 50);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2, 0, 0, 0, 0);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 0, 0, 0, 0);
 
 -- city
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 10, 2, 3, 125);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 10, 0, 0, 0, 0);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 0, 0, 0, 0);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20, 1, 3, 100);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20, 0, 0, 0, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 0, 0, 0, 1);
 
 -- constan
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100, 2, 4, 200);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100, 1, 1, 0, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 0, 1);
 
 -- peak
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 1, 1, 2, 150);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 1, 1, 1, 1, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 1, 1);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2, 2, 4, 225);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2, 1, 1, 1, 1);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 1, 1);
 
 INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro)
 VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3, 4, 8, 375);
-INSERT INTO APARTMENT_DESCRIPTION (hotel_id, apart_number, air_conditioner, minibar, tv, double_bed)
-VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3, 1, 1, 1, 0);
+INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed)
+VALUES (APARTMENT_APARTMENT_ID_SEQ.CURRVAL, 1, 1, 1, 0);
 
 -- BOOKINGS
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel') AND apart_number = 2),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 1 FROM DUAL), (SELECT SYSDATE + 7 FROM DUAL), 3, 1);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel') AND apart_number = 100),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 13 FROM DUAL), (SELECT SYSDATE + 20 FROM DUAL), 1, 3);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel'), 20,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO252342'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'City Hotel') AND apart_number = 20),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 8 FROM DUAL), (SELECT SYSDATE + 12 FROM DUAL), 2, 0);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 2,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel') AND apart_number = 2),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 16 FROM DUAL), (SELECT SYSDATE + 30 FROM DUAL), 2, 0);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 2,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel') AND apart_number = 2),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 10 FROM DUAL), (SELECT SYSDATE + 15 FROM DUAL), 2, 2);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel') AND apart_number = 100),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 6 FROM DUAL), (SELECT SYSDATE + 10 FROM DUAL), 2, 2);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel'), 1,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'RO525355'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Universitatea Hotel') AND apart_number = 1),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 1 FROM DUAL), (SELECT SYSDATE + 5 FROM DUAL), 2, 0);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'MDC52522'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel'), 3,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'MDC52522'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Peak Hotel') AND apart_number = 3),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE FROM DUAL), (SELECT SYSDATE + 2 FROM DUAL), 7, 0);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'UK2432L52342'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel'), 10,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'UK2432L52342'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Stefan cel Mare Hotel') AND apart_number = 10),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE + 4 FROM DUAL), (SELECT SYSDATE + 15 FROM DUAL), 3, 0);
 
-INSERT INTO BOOKING (guest_id, hotel_id, apart_number, book_date, check_in, check_out, adults_count, children_count)
-VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'IT251NA321542'), (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel'), 100,
+INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = 'IT251NA321542'), (SELECT apart_id FROM APARTMENT WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = 'Constanta Hotel') AND apart_number = 100),
     (SELECT SYSDATE FROM DUAL),(SELECT SYSDATE FROM DUAL), (SELECT SYSDATE + 6 FROM DUAL), 4, 0);

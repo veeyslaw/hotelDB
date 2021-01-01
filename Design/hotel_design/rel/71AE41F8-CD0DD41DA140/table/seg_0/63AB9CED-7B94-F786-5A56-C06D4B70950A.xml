@@ -23,34 +23,19 @@
 <colAssociation fkAssociation="1B4B6CA8-D13F-91E4-E9E0-F00223A1ACE9" referredColumn="FAB1B29E-23C4-FF0B-A9D0-88E7848D3DA4"/>
 </associations>
 </Column>
-<Column name="hotel_id" id="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB">
+<Column name="apart_id" id="6FD07034-FE78-BA9E-FAAE-A777EF966798">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:47:30 UTC</createdTime>
+<createdTime>2021-01-01 16:22:32 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>2</dataTypePrecision>
+<dataTypePrecision>5</dataTypePrecision>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="6812870A-C9B3-309E-5892-A44F52DCF04D" referredColumn="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
-</associations>
-</Column>
-<Column name="apart_number" id="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:47:30 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="6812870A-C9B3-309E-5892-A44F52DCF04D" referredColumn="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+<colAssociation fkAssociation="6812870A-C9B3-309E-5892-A44F52DCF04D" referredColumn="EA9F05D1-459A-3C21-33D4-A0266B50868A"/>
 </associations>
 </Column>
 <Column name="book_date" id="A9345977-E0A2-4C81-FB69-D660D5C0AD43">
@@ -115,16 +100,15 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="1F4479CF-F7AD-37CA-CE0A-0F8B7DB02715" name="BOOKING_PK">
+<ind_PK_UK id="04D98606-F5E9-6056-4105-42C96AFC914A" name="BOOKING_PK">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:48:08 UTC</createdTime>
+<createdTime>2021-01-01 19:19:14 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB"/>
-<colUsage columnID="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E"/>
+<colUsage columnID="6FD07034-FE78-BA9E-FAAE-A777EF966798"/>
 <colUsage columnID="BF397D21-5B51-7C7C-414F-AF146543D57E"/>
 </indexColumnUsage>
 </ind_PK_UK>
@@ -145,8 +129,7 @@
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="0E9F7A5C-E378-3844-0266-5EB0B76C0CAB"/>
-<colUsage columnID="766C5FFE-52B7-2C6D-E0CD-BFE46880B23E"/>
+<colUsage columnID="6FD07034-FE78-BA9E-FAAE-A777EF966798"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

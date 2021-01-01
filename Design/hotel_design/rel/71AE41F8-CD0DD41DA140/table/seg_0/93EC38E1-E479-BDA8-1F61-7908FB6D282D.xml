@@ -94,6 +94,16 @@
 <colUsage columnID="28E7CEF0-BEB4-501B-34D2-E76C28FE1370"/>
 </indexColumnUsage>
 </ind_PK_UK>
+<ind_PK_UK id="A579A005-097B-560B-35A0-0DEA6DCB8EC4" name="HOTEL_HOTEL_NAME_UN">
+<createdBy>Userr</createdBy>
+<createdTime>2021-01-01 16:21:06 UTC</createdTime>
+<ownerDesignName>hotel_design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="01EAAF40-714B-3F97-85BD-665C46A97D8C"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="C80B2595-6086-9776-A3D9-56E0205486A1" name="HOTEL_CITY_FK">
 <createdBy>Userr</createdBy>
 <createdTime>2020-12-01 16:40:23 UTC</createdTime>

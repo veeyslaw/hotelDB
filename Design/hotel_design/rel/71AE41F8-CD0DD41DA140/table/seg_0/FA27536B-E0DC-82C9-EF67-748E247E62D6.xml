@@ -7,34 +7,16 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="hotel_id" id="08833FBD-7602-2447-C6D3-0966F62C102F">
+<Column name="apart_id" id="47C1B80D-0B75-4BD8-007F-5C730663F2A2">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:46:20 UTC</createdTime>
+<createdTime>2021-01-01 16:23:54 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>2</dataTypePrecision>
+<use>0</use>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="16588F78-DE31-D470-462F-E652486A310C" referredColumn="E3BAF426-E267-C809-14BD-ABE0E8E94E78"/>
-</associations>
-</Column>
-<Column name="apart_number" id="0099562B-34B8-8BBD-BD77-4B70C40B75C8">
-<createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:46:20 UTC</createdTime>
-<ownerDesignName>hotel_design</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="16588F78-DE31-D470-462F-E652486A310C" referredColumn="71E2C989-275F-AE95-7B45-4DF8B39975F6"/>
+<colAssociation fkAssociation="997D9A4C-7669-01F1-A989-4478B13C96C8" referredColumn="EA9F05D1-459A-3C21-33D4-A0266B50868A"/>
 </associations>
 </Column>
 <Column name="air_conditioner" id="55E70AFE-A707-1E93-55D8-879817C07E81">
@@ -111,19 +93,17 @@
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="08833FBD-7602-2447-C6D3-0966F62C102F"/>
-<colUsage columnID="0099562B-34B8-8BBD-BD77-4B70C40B75C8"/>
+<colUsage columnID="47C1B80D-0B75-4BD8-007F-5C730663F2A2"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C878669D-CDD0-137B-A078-D35D325125A2" name="APARTMENT_DESC_APARTMENT_FK">
+<ind_PK_UK id="B001D0FD-D5E6-1204-592F-3C12631B13FA" name="APART_DESC_APART_FK">
 <createdBy>Userr</createdBy>
-<createdTime>2020-12-19 14:46:20 UTC</createdTime>
+<createdTime>2021-01-01 16:23:54 UTC</createdTime>
 <ownerDesignName>hotel_design</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="08833FBD-7602-2447-C6D3-0966F62C102F"/>
-<colUsage columnID="0099562B-34B8-8BBD-BD77-4B70C40B75C8"/>
+<colUsage columnID="47C1B80D-0B75-4BD8-007F-5C730663F2A2"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
