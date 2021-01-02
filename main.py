@@ -1036,17 +1036,25 @@ class MainWindow(QMainWindow):
                                                   >= {adults_count + children_count}
                                               AND ((SELECT COUNT(*)
                                                      FROM BOOKING b,
+                                                          (SELECT * FROM BOOKING
+                                                           WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                                             WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                                             AND apart_number = {old_apart_number})
+                                                                 AND check_in LIKE TO_DATE('{old_check_in}', 'YYYY-MM-DD'))
+                                                          old_b,
                                                           (SELECT * FROM APARTMENT
                                                            WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
                                                                  AND apart_number = {apart_number})
                                                           a
                                                      WHERE b.apart_id = a.apart_id
                                                          AND b.check_out > TO_DATE('{check_in}', 'YYYY-MM-DD')
-                                                         AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')) = 0
-                                                  OR {int(hotel_name == old_hotel_name and apart_number == old_apart_number)} > 0)
+                                                         AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')
+                                                         AND (b.apart_id <> old_b.apart_id
+                                                              OR b.check_in <> old_b.check_in))
+                                                 = 0)
                     """)
                     if cursor.rowcount == 0:
-                        self.error('Capacity exceeded. Apatment does not exist.' +\
+                        self.error('Capacity exceeded. Apartment does not exist.' +\
                                     '\nBooking interval is in conflicts with another.' +\
                                     '\nOr booking was modified before it could be updated')
                         self.update_delete_dialog.accept()
