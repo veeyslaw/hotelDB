@@ -276,9 +276,13 @@ class MainWindow(QMainWindow):
             guest_data = [row for row in cursor]
 
         if len(guest_data) == 0:
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO GUEST (first_name, last_name, passport_number, email{', phone_number' if len(phone_number) > 0 else ''}) " +\
-                                f"VALUES ('{first_name}', '{last_name}', '{passport_number}', '{email}'{phone_number_text})")
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"INSERT INTO GUEST (first_name, last_name, passport_number, email{', phone_number' if len(phone_number) > 0 else ''}) " +\
+                                    f"VALUES ('{first_name}', '{last_name}', '{passport_number}', '{email}'{phone_number_text})")
+            except cx_Oracle.IntegrityError:
+                self.error('Something is wrong with provided details. Please recheck and try again.')
+                return
         else:
             if (first_name, last_name, email, phone_number) != guest_data:
                 self.error('You have another active booking, but the details provided are different. Please verify again or contact us.')
