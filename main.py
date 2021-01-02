@@ -210,7 +210,7 @@ class MainWindow(QMainWindow):
         with self.db_connection.cursor() as cursor:
             cursor.execute(query)
             offers = [row for row in cursor]
-        if offers is None:
+        if len(offers) == 0:
             self.error('No available offers. Try a broader search.')
         else:
             self.go_to_offers_page(offers)
