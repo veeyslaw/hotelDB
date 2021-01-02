@@ -93,6 +93,8 @@ class MainWindow(QMainWindow):
         self.update_delete_dialog.delete_button.setEnabled(False)
 
     def error(self, message):
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('ROLLBACK')
         self.error_label.setText(message)
         self.error_dialog.exec()
 
@@ -283,6 +285,9 @@ class MainWindow(QMainWindow):
             except cx_Oracle.IntegrityError:
                 self.error('Something is wrong with provided details. Please recheck and try again.')
                 return
+            except cx_Oracle.DatabaseError:
+                self.error(f'One of the fields is too long. Try shortening them.')
+                return
         else:
             if (first_name, last_name, email, phone_number) != guest_data:
                 self.error('You have another active booking, but the details provided are different. Please verify again or contact us.')
@@ -291,26 +296,26 @@ class MainWindow(QMainWindow):
         with self.db_connection.cursor() as cursor:
             sysdate = str(cursor.execute('SELECT SYSDATE FROM DUAL').fetchone()[0].date())
 
-        with self.db_connection.cursor() as cursor:
-            cursor.execute(f"""INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
-                            VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
-                                    (SELECT apart_id FROM APARTMENT
-                                     WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{self.hotel_name}')
-                                         AND apart_number = {self.apartment_number}),
-                                    TO_DATE('{sysdate}', 'YYYY-MM-DD'),
-                                    TO_DATE('{self.check_in}', 'YYYY-MM-DD'),
-                                    TO_DATE('{self.check_out}', 'YYYY-MM-DD'),
-                                    {self.adults_count},
-                                    {self.children_count}
-                            )""")
-
         try:
             with self.db_connection.cursor() as cursor:
-                cursor.execute('COMMIT')
-        except Exception as e:
-            print(type(e))
-            print(e)
-            self.error('Could not confirm booking. Try again later.')
+                cursor.execute(f"""INSERT INTO BOOKING (guest_id, apart_id, book_date, check_in, check_out, adults_count, children_count)
+                                VALUES ((SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
+                                        (SELECT apart_id FROM APARTMENT
+                                         WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{self.hotel_name}')
+                                             AND apart_number = {self.apartment_number}),
+                                        TO_DATE('{sysdate}', 'YYYY-MM-DD'),
+                                        TO_DATE('{self.check_in}', 'YYYY-MM-DD'),
+                                        TO_DATE('{self.check_out}', 'YYYY-MM-DD'),
+                                        {self.adults_count},
+                                        {self.children_count}
+                                )""")
+        except cx_Oracle.IntegrityError:
+            self.error('Booking is already reserved. Try again later.')
+            self.go_to_fresh_book_page()
+            return
+
+        with self.db_connection.cursor() as cursor:
+            cursor.execute('COMMIT')
 
         self.main_stacked_widget.setCurrentIndex(MainWindow.SUCCESSFUL_PAGE)
 
@@ -773,9 +778,17 @@ class MainWindow(QMainWindow):
         index = self.add_dialog.add_stacked_widget.currentIndex()
         if index == MainWindow.CITY_PAGE:
             city_name = self.add_dialog.city_name_line_edit.text()
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""INSERT INTO CITY (city_name)
-                                VALUES ('{city_name}')""")
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""INSERT INTO CITY (city_name)
+                                    VALUES ('{city_name}')""")
+            except cx_Oracle.IntegrityError:
+                self.error(f'{city_name} already exists. Or you have entered restricted characters.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'City name is too long. Try shortening it.')
+                return
+
         elif index == MainWindow.HOTEL_PAGE:
             hotel_name = self.add_dialog.hotel_name_line_edit.text()
             city_name = self.add_dialog.city_name_line_edit_2.text()
@@ -792,23 +805,36 @@ class MainWindow(QMainWindow):
             pool = int(self.add_dialog.pool_check_box.isChecked())
             free_internet = int(self.add_dialog.free_internet_check_box.isChecked())
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO HOTEL (hotel_name, city_id, contact_number{f', manager_name' if manager_name != '' else ''}) " +\
-                                f"VALUES ('{hotel_name}', " +\
-                                f"(SELECT city_id FROM CITY WHERE city_name = '{city_name}'), " +\
-                                f"'{contact_number}'" +\
-                                manager_name_line +\
-                                ")")
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc{f', rating' if rating is not None else ''}, restaurant, free_meals, pool, free_internet) " +\
-                                f"VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, " +\
-                                f"'{text_desc}', " +\
-                                f"{f'{rating}, ' if rating is not None else ''}" +\
-                                f"{restaurant}, " +\
-                                f"{free_meals}, " +\
-                                f"{pool}, " +\
-                                f"{free_internet}" +\
-                                ")")
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"INSERT INTO HOTEL (hotel_name, city_id, contact_number{f', manager_name' if manager_name != '' else ''}) " +\
+                                    f"VALUES ('{hotel_name}', " +\
+                                    f"(SELECT city_id FROM CITY WHERE city_name = '{city_name}'), " +\
+                                    f"'{contact_number}'" +\
+                                    manager_name_line +\
+                                    ")")
+            except cx_Oracle.IntegrityError:
+                self.error(f'{hotel_name} already exists. {city_name} does not exist. Or you have entered restricted characters.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'Hotel name, contact number or manager name is too long. Try shortening them.')
+                return
+
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"INSERT INTO HOTEL_DESCRIPTION (hotel_id, text_desc{f', rating' if rating is not None else ''}, restaurant, free_meals, pool, free_internet) " +\
+                                    f"VALUES (HOTEL_HOTEL_ID_SEQ.CURRVAL, " +\
+                                    f"'{text_desc}', " +\
+                                    f"{f'{rating}, ' if rating is not None else ''}" +\
+                                    f"{restaurant}, " +\
+                                    f"{free_meals}, " +\
+                                    f"{pool}, " +\
+                                    f"{free_internet}" +\
+                                    ")")
+            except cx_Oracle.DatabaseError:
+                self.error(f'Description is too long. Try shortening it.')
+                return
+
         elif index == MainWindow.APARTMENT_PAGE:
             hotel_name = self.add_dialog.hotel_name_line_edit_2.text()
             apartment_number = self.add_dialog.apart_number_spin_box.value()
@@ -819,15 +845,19 @@ class MainWindow(QMainWindow):
             minibar = int(self.add_dialog.minibar_check_box.isChecked())
             tv = int(self.add_dialog.tv_check_box.isChecked())
             double_bed = int(self.add_dialog.double_bed_check_box.isChecked())
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro) " +\
+                                    f"VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'), " +\
+                                    f"{apartment_number}, " +\
+                                    f"{room_count}, " +\
+                                    f"{capacity}, " +\
+                                    f"{price_per_night_euro}" +\
+                                    ")")
+            except cx_Oracle.IntegrityError:
+                self.error(f'{hotel_name} does not exists. Or there already is an apartment no. {apartment_number} in this hotel.')
+                return
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO APARTMENT (hotel_id, apart_number, room_count, apart_capacity, price_per_night_euro) " +\
-                                f"VALUES ((SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'), " +\
-                                f"{apartment_number}, " +\
-                                f"{room_count}, " +\
-                                f"{capacity}, " +\
-                                f"{price_per_night_euro}" +\
-                                ")")
             with self.db_connection.cursor() as cursor:
                 cursor.execute(f"INSERT INTO APARTMENT_DESCRIPTION (apart_id, air_conditioner, minibar, tv, double_bed) " +\
                                 f"VALUES ((SELECT apart_id FROM APARTMENT " +\
@@ -851,11 +881,22 @@ class MainWindow(QMainWindow):
             old_city_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
             city_name = self.update_delete_dialog.city_name_line_edit.text()
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE CITY
-                                    SET city_name = '{city_name}'
-                                    WHERE city_name = '{old_city_name}'
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE CITY
+                                        SET city_name = '{city_name}'
+                                        WHERE city_name = '{old_city_name}'
+                    """)
+                    if cursor.rowcount == 0:
+                        self.error(f'{old_city_name} was modified before it could be updated.')
+                        self.update_delete_dialog.accept()
+                        return
+            except cx_Oracle.IntegrityError:
+                self.error(f'{city_name} already exists. Or you have entered restricted characters.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'City name is too long. Try shortening it.')
+                return
 
         elif index == MainWindow.HOTEL_PAGE:
             old_hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
@@ -873,25 +914,40 @@ class MainWindow(QMainWindow):
             pool = int(self.update_delete_dialog.pool_check_box.isChecked())
             free_internet = int(self.update_delete_dialog.free_internet_check_box.isChecked())
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE HOTEL_DESCRIPTION
-                                    SET text_desc = '{text_desc}',
-                                        rating = {rating if rating is not None else 'null'},
-                                        restaurant = {restaurant},
-                                        free_meals = {free_meals},
-                                        pool = {pool},
-                                        free_internet = {free_internet}
-                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE HOTEL_DESCRIPTION
+                                        SET text_desc = '{text_desc}',
+                                            rating = {rating if rating is not None else 'null'},
+                                            restaurant = {restaurant},
+                                            free_meals = {free_meals},
+                                            pool = {pool},
+                                            free_internet = {free_internet}
+                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                    """)
+            except cx_Oracle.DatabaseError:
+                self.error(f'Description is too long. Try shortening it.')
+                return
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE HOTEL
-                                    SET hotel_name = '{hotel_name}',
-                                        city_id = (SELECT city_id FROM CITY WHERE city_name = '{city_name}'),
-                                        contact_number = '{contact_number}',
-                                        manager_name = {f"'{manager_name}'" if manager_name != '' else 'null'}
-                                    WHERE hotel_name = '{old_hotel_name}'
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE HOTEL
+                                        SET hotel_name = '{hotel_name}',
+                                            city_id = (SELECT city_id FROM CITY WHERE city_name = '{city_name}'),
+                                            contact_number = '{contact_number}',
+                                            manager_name = {f"'{manager_name}'" if manager_name != '' else 'null'}
+                                        WHERE hotel_name = '{old_hotel_name}'
+                    """)
+                    if cursor.rowcount == 0:
+                        self.error(f'{old_hotel_name} was modified before it could be updated.')
+                        self.update_delete_dialog.accept()
+                        return
+            except cx_Oracle.IntegrityError:
+                self.error(f'{hotel_name} already exists. Or you have entered restricted characters.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'Hotel name, contact number or manager name is too long. Try shortening them. Or {city_name} does not exist.')
+                return
 
         elif index == MainWindow.APARTMENT_PAGE:
             last_comma = managing_text.rfind(',')
@@ -919,16 +975,27 @@ class MainWindow(QMainWindow):
                                                       AND apart_number = {old_apartment_number})
                 """)
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE APARTMENT
-                                    SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
-                                        apart_number = {apart_number},
-                                        room_count = {room_count},
-                                        apart_capacity = {capacity},
-                                        price_per_night_euro = {price_per_night_euro}
-                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
-                                        AND apart_number = {old_apartment_number}
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE APARTMENT
+                                        SET hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}'),
+                                            apart_number = {apart_number},
+                                            room_count = {room_count},
+                                            apart_capacity = {capacity},
+                                            price_per_night_euro = {price_per_night_euro}
+                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                            AND apart_number = {old_apartment_number}
+                    """)
+                    if cursor.rowcount == 0:
+                        self.error(f'{old_hotel_name}, apartment no.{old_apartment_number} was modified before it could be updated.')
+                        self.update_delete_dialog.accept()
+                        return
+            except cx_Oracle.IntegrityError:
+                self.error(f'There already is an apartment no. {apartment_number} in this hotel.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'{hotel_name} does not exists.')
+                return
 
         elif index == MainWindow.BOOKING_PAGE:
             old_hotel_name_start = managing_text.find(':') + 2
@@ -948,35 +1015,45 @@ class MainWindow(QMainWindow):
             adults_count = self.update_delete_dialog.adults_count_spin_box.value()
             children_count = self.update_delete_dialog.children_count_spin_box.value()
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE BOOKING
-                                    SET guest_id = (SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
-                                        apart_id = (SELECT apart_id FROM APARTMENT
-                                                    WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
-                                                          AND apart_number = {apart_number}),
-                                        check_in = TO_DATE('{check_in}', 'YYYY-MM-DD'),
-                                        check_out = TO_DATE('{check_out}', 'YYYY-MM-DD'),
-                                        adults_count = {adults_count},
-                                        children_count = {children_count}
-                                    WHERE apart_id = (SELECT apart_id FROM APARTMENT
-                                                      WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
-                                                      AND apart_number = {old_apart_number})
-                                          AND check_in LIKE TO_DATE('{old_check_in}', 'YYYY-MM-DD')
-                                          AND (SELECT apart_capacity FROM APARTMENT
-                                                            WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
-                                                            AND apart_number = {apart_number})
-                                              >= {adults_count + children_count}
-                                          AND ((SELECT COUNT(*)
-                                                 FROM BOOKING b,
-                                                      (SELECT * FROM APARTMENT
-                                                       WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
-                                                             AND apart_number = {apart_number})
-                                                      a
-                                                 WHERE b.apart_id = a.apart_id
-                                                     AND b.check_out > TO_DATE('{check_in}', 'YYYY-MM-DD')
-                                                     AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')) = 0
-                                              OR {int(hotel_name == old_hotel_name and apart_number == old_apart_number)} > 0)
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE BOOKING
+                                        SET guest_id = (SELECT guest_id FROM GUEST WHERE passport_number = '{passport_number}'),
+                                            apart_id = (SELECT apart_id FROM APARTMENT
+                                                        WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                              AND apart_number = {apart_number}),
+                                            check_in = TO_DATE('{check_in}', 'YYYY-MM-DD'),
+                                            check_out = TO_DATE('{check_out}', 'YYYY-MM-DD'),
+                                            adults_count = {adults_count},
+                                            children_count = {children_count}
+                                        WHERE apart_id = (SELECT apart_id FROM APARTMENT
+                                                          WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{old_hotel_name}')
+                                                          AND apart_number = {old_apart_number})
+                                              AND check_in LIKE TO_DATE('{old_check_in}', 'YYYY-MM-DD')
+                                              AND (SELECT apart_capacity FROM APARTMENT
+                                                                WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                                AND apart_number = {apart_number})
+                                                  >= {adults_count + children_count}
+                                              AND ((SELECT COUNT(*)
+                                                     FROM BOOKING b,
+                                                          (SELECT * FROM APARTMENT
+                                                           WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
+                                                                 AND apart_number = {apart_number})
+                                                          a
+                                                     WHERE b.apart_id = a.apart_id
+                                                         AND b.check_out > TO_DATE('{check_in}', 'YYYY-MM-DD')
+                                                         AND b.check_in < TO_DATE('{check_out}', 'YYYY-MM-DD')) = 0
+                                                  OR {int(hotel_name == old_hotel_name and apart_number == old_apart_number)} > 0)
+                    """)
+                    if cursor.rowcount == 0:
+                        self.error('Capacity exceeded. Apatment does not exist.' +\
+                                    '\nBooking interval is in conflicts with another.' +\
+                                    '\nOr booking was modified before it could be updated')
+                        self.update_delete_dialog.accept()
+                        return
+            except cx_Oracle.DatabaseError:
+                self.error(f'{passport_number} does not exist.')
+                return
 
         elif index == MainWindow.GUEST_PAGE:
             old_passport_number_start = managing_text.find(':') + 2
@@ -988,15 +1065,26 @@ class MainWindow(QMainWindow):
             email = self.update_delete_dialog.email_line_edit.text()
             phone_number = self.update_delete_dialog.phone_number_line_edit.text()
 
-            with self.db_connection.cursor() as cursor:
-                cursor.execute(f"""UPDATE GUEST
-                                    SET first_name = '{first_name}',
-                                        last_name = '{last_name}',
-                                        passport_number = '{passport_number}',
-                                        email = '{email}',
-                                        phone_number = {f"'{phone_number}'" if phone_number != '' else 'null'}
-                                    WHERE passport_number = '{old_passport_number}'
-                """)
+            try:
+                with self.db_connection.cursor() as cursor:
+                    cursor.execute(f"""UPDATE GUEST
+                                        SET first_name = '{first_name}',
+                                            last_name = '{last_name}',
+                                            passport_number = '{passport_number}',
+                                            email = '{email}',
+                                            phone_number = {f"'{phone_number}'" if phone_number != '' else 'null'}
+                                        WHERE passport_number = '{old_passport_number}'
+                    """)
+                    if cursor.rowcount == 0:
+                        self.error(f'{old_passport_number} was modified before it could be updated.')
+                        self.update_delete_dialog.accept()
+                        return
+            except cx_Oracle.IntegrityError:
+                self.error(f'You have entered restricted characters.')
+                return
+            except cx_Oracle.DatabaseError:
+                self.error(f'One of the fields is too long. Try shortening them.')
+                return
 
         with self.db_connection.cursor() as cursor:
             cursor.execute('COMMIT')
@@ -1037,6 +1125,10 @@ class MainWindow(QMainWindow):
                 cursor.execute(f"""DELETE FROM CITY
                                     WHERE city_name = '{city_name}'
                 """)
+                if cursor.rowcount == 0:
+                    self.error(f'{city_name} was modified before it could be deleted.')
+                    self.update_delete_dialog.accept()
+                    return
 
         elif index == MainWindow.HOTEL_PAGE:
             hotel_name = managing_text[MainWindow.CURRENT_ITEM_BASE_LABEL_LEN: ]
@@ -1065,6 +1157,10 @@ class MainWindow(QMainWindow):
                 cursor.execute(f"""DELETE FROM HOTEL
                                     WHERE hotel_name = '{hotel_name}'
                 """)
+                if cursor.rowcount == 0:
+                    self.error(f'{hotel_name} was modified before it could be deleted.')
+                    self.update_delete_dialog.accept()
+                    return
 
         elif index == MainWindow.APARTMENT_PAGE:
             last_comma = managing_text.rfind(',')
@@ -1099,6 +1195,10 @@ class MainWindow(QMainWindow):
                                     WHERE hotel_id = (SELECT hotel_id FROM HOTEL WHERE hotel_name = '{hotel_name}')
                                         AND apart_number = {apart_number}
                 """)
+                if cursor.rowcount == 0:
+                    self.error(f'{hotel_name}, apartment no.{apart_number} was modified before it could be deleted.')
+                    self.update_delete_dialog.accept()
+                    return
 
         elif index == MainWindow.BOOKING_PAGE:
             hotel_name_start = managing_text.find(':') + 2
@@ -1136,6 +1236,10 @@ class MainWindow(QMainWindow):
                                                       AND apart_number = {apart_number})
                                           AND check_in LIKE TO_DATE('{check_in}', 'YYYY-MM-DD')
                 """)
+                if cursor.rowcount == 0:
+                    self.error(f'Booking was modified before it could be deleted.')
+                    self.update_delete_dialog.accept()
+                    return
 
         elif index == MainWindow.GUEST_PAGE:
             passport_number_start = managing_text.find(':') + 2
@@ -1145,6 +1249,10 @@ class MainWindow(QMainWindow):
                 cursor.execute(f"""DELETE FROM GUEST
                                     WHERE passport_number = '{passport_number}'
                 """)
+                if cursor.rowcount == 0:
+                    self.error(f'{passport_number} was modified before it could be deleted.')
+                    self.update_delete_dialog.accept()
+                    return
 
         with self.db_connection.cursor() as cursor:
             cursor.execute('COMMIT')
