@@ -1,5 +1,0 @@
-treat exceptions
-ROLLBACK in error?
-
-recheck all constraints
-refactor?
